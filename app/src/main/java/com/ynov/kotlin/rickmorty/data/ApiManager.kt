@@ -2,7 +2,6 @@ package com.ynov.kotlin.rickmorty.data
 
 import com.ynov.kotlin.rickmorty.data.remote.CharacterResult
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import io.reactivex.Single

@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         fragmentContainer = findViewById(R.id.activity_main_container)
         initFragment()
     }
-
+    
     private fun initFragment() {
         CharactersFragment.newInstance()?.let {
             val transaction = supportFragmentManager.beginTransaction()
