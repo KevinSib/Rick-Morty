@@ -18,7 +18,7 @@ class RMApplication : Application() {
     }
 
     fun initInjection() {
-        var apiManager: ApiManager = ApiManager();
-        dataRepository = DataRepository(apiManager);
+        var apiManager: ApiManager = ApiManager()
+        dataRepository = DataRepository(apiManager)
     }
 }

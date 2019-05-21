@@ -8,6 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 private const val API_BASE_URL = "https://rickandmortyapi.com/"
 
@@ -24,6 +25,9 @@ class ApiManager {
 
         @GET("api/episode")
         fun retrieveEpisode(): Single<EpisodeResult>
+
+        @GET("/api/character/{charactId}")
+        fun retrieveDetailCharactere(@Path("charactId") url: String)
     }
 
     init {
@@ -40,4 +44,6 @@ class ApiManager {
     fun retrieveLocation() = service.retrieveLocation()
 
     fun retrieveEpisode() = service.retrieveEpisode()
+
+    fun retrieveDetailCharacter(url: String) = service.retrieveDetailCharactere(url);
 }
