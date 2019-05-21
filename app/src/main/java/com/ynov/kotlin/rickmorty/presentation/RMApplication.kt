@@ -14,6 +14,7 @@ class RMApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         app = this
+        initInjection()
     }
 
     fun initInjection() {

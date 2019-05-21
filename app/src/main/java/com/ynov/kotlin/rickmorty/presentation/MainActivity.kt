@@ -25,18 +25,12 @@ class MainActivity : AppCompatActivity() {
         initFragment()
     }
 
-        val apiManager: ApiManager = ApiManager()
-        var characterResult: Single<CharacterResult> = DataRepository(apiManager).retrieveCaracter()
-
-        var a = characterResult
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(
-                onSuccess = { it -> print(it.results.get(0))
-                }, onError = {it-> print(it.)
-
-                }
-            )
+    private fun initFragment() {
+        CharactersFragment.newInstance()?.let {
+            val transaction = supportFragmentManager.beginTransaction()
+            transaction.replace(R.id.activity_main_container, it)
+            transaction.commit()
+        }
     }
 
 }
