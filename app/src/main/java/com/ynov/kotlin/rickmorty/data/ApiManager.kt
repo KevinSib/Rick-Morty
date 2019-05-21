@@ -14,8 +14,10 @@ class ApiManager {
     private val service: ApiService
 
     interface ApiService {
+
         @GET("/character")
         fun retrieveThings(): Single<CharacterResult>
+
     }
 
     init {
