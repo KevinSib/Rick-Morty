@@ -1,4 +1,4 @@
-package data.entity
+package com.ynov.kotlin.rickmorty.data.entity
 
 data class Info (
     val count: Long,

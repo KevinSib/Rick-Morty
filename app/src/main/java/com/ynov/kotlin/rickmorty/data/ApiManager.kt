@@ -1,6 +1,6 @@
 package com.ynov.kotlin.rickmorty.data
 
-import data.remote.CharacterResult
+import com.ynov.kotlin.rickmorty.data.remote.CharacterResult
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
