@@ -9,10 +9,16 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.ynov.kotlin.rickmorty.R
+import com.ynov.kotlin.rickmorty.data.ApiManager
+import com.ynov.kotlin.rickmorty.data.DataRepository
 import com.ynov.kotlin.rickmorty.data.entity.Character
+import com.ynov.kotlin.rickmorty.data.remote.CharacterResult
 import com.ynov.kotlin.rickmorty.presentation.adapters.BaseRecyclerViewAdapter.IRecyclerViewManager
 import com.ynov.kotlin.rickmorty.presentation.adapters.CharactersRecyclerViewAdapters
 import com.ynov.kotlin.rickmorty.presentation.viewHolders.BaseViewHolder
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IItemOnClickListener {
@@ -54,6 +60,17 @@ class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IIte
             it.adapter = adapter
 
         }
+
+        val apiManager: ApiManager = ApiManager()
+        var characterResult: Single<CharacterResult> = DataRepository(apiManager).RetrieveCaracter()
+
+        var a =  characterResult
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ res ->
+                mItems = res.results.toMutableList()
+                mRecyclerView?.adapter?.notifyDataSetChanged()
+            })
 
     }
 
