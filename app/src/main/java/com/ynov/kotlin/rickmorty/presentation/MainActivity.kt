@@ -17,7 +17,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         val apiManager: ApiManager = ApiManager()
         var characterResult: Single<CharacterResult> = DataRepository(apiManager).RetrieveCaracter()
 

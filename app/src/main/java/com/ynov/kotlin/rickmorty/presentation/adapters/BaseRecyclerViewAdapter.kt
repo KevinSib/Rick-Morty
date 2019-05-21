@@ -11,7 +11,7 @@ import com.ynov.kotlin.rickmorty.presentation.viewHolders.CharacterViewHolder
 abstract class BaseRecyclerViewAdapter: RecyclerView.Adapter<BaseViewHolder>() {
 
     interface IRecyclerViewManager {
-        val items: List<Any>
+        val items: MutableList<Any>
         val onClickListenerManager: BaseViewHolder.IItemOnClickListener
         fun numberOfItem(): Int
         fun getItemAtPosition(position: Int): Any
