@@ -21,6 +21,7 @@ fun Context.showMessage(title: String, message: String) {
     builder.setPositiveButton(android.R.string.yes) { dialog, which ->
         dialog.dismiss()
     }
+    builder.show()
 }
 
 fun Context.showToast(msg: String) {

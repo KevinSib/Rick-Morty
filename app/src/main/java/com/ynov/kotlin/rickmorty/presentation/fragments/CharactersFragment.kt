@@ -78,7 +78,6 @@ class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IIte
     }
 
     companion object {
-        @JvmStatic
         fun newInstance() = CharactersFragment()
     }
 
@@ -96,10 +95,8 @@ class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IIte
 
     override fun OnClickRecyclerViewItem(obj: Any, atPosition: Int) {
         if (obj is Character) {
-            context?.let {
-                val newIntent = CharacterDetailActivity.newIntent(it, obj.id)
-                startActivity(newIntent)
-            }
+            val newIntent = CharacterDetailActivity.newIntent(requireContext(), obj.id)
+            startActivity(newIntent)
         }
     }
 

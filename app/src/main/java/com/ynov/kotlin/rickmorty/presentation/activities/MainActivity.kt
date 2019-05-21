@@ -15,11 +15,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFragment() {
-        CharactersFragment.newInstance()?.let {
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.activity_main_container, it)
-            transaction.commit()
-        }
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.activity_main_container, CharactersFragment.newInstance())
+            .commit()
     }
 
 }

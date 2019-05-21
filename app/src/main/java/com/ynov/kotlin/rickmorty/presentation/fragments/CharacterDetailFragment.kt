@@ -16,7 +16,7 @@ import com.ynov.kotlin.rickmorty.presentation.viewModels.CharacterDetailViewMode
 import com.ynov.kotlin.rickmorty.presentation.viewModels.CharactersViewModel
 
 
-class CharacterDetailFragment : Fragment() {
+class CharacterDetailFragment(var characterId: Long) : Fragment() {
 
     var loader: ProgressDialog? = null
 
@@ -36,24 +36,24 @@ class CharacterDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_character_detail, container, false)
+        val r = inflater.inflate(R.layout.fragment_character_detail, container, false)
+
+        return r
     }
 
     override fun onStart() {
         super.onStart()
-        arguments?.let {
-            viewModel?.start(it.getLong(CHARACTER_ID))
-        }
+        viewModel?.start(id = characterId)
     }
 
     companion object {
         val CHARACTER_ID: String = "CHAR_ID"
-        @JvmStatic
-        fun newInstance(id: Long) = CharactersFragment().apply {
+        fun newInstance(id: Long) = CharacterDetailFragment(id)
+        /*CharacterDetailFragment().apply {
             arguments = Bundle().apply {
                 putLong(CHARACTER_ID, id)
             }
-        }
+        }*/
     }
 
     //endregion

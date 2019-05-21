@@ -14,39 +14,36 @@ class CharacterDetailActivity : AppCompatActivity() {
     companion object {
         val CHARACTER_ID: String = "CHAR_ID"
         fun newIntent(cxt: Context, id: Long): Intent {
-            val intent = Intent(cxt, CharacterDetailActivity::class.java)
-            intent.putExtra(CHARACTER_ID, id)
-            return intent
+            var newI = Intent(cxt, CharacterDetailActivity::class.java)
+            newI = newI.putExtra(CHARACTER_ID, id)
+            return newI
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_detail)
+        loadFragment()
     }
 
-    override fun onResume() {
-        super.onResume()
-        intent.let {
-            val characterId = it.getLongExtra(CHARACTER_ID, -1L)
-            if (characterId == -1L) {
-                //  TODO put string on strings.xml
-                showMessage(
-                    "Ricky et Morty",
-                    "Une erreur est survenu, merci de réessayer plus tard"
-                )
-            } else {
-                initFragment(characterId)
-            }
+    private fun loadFragment() {
+        val characterId = intent.getLongExtra(CHARACTER_ID, -1L)
+        if (characterId == -1L) {
+            //  TODO put string on strings.xml
+            showMessage(
+                "Ricky et Morty",
+                "Une erreur est survenu, merci de réessayer plus tard"
+            )
+        } else {
+            initFragment(characterId)
         }
     }
 
     private fun initFragment(id: Long) {
-        CharacterDetailFragment.newInstance(id).let {
-            val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.character_detail_container, it)
-            transaction.commit()
-        }
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.character_detail_container, CharacterDetailFragment.newInstance(id))
+            .commit()
     }
 
 }
