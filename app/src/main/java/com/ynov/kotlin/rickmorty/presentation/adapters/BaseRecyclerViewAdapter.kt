@@ -32,20 +32,20 @@ abstract class BaseRecyclerViewAdapter: RecyclerView.Adapter<BaseViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        if (manager == null) {
-            return
-        }
-        val currentObject = manager!!.getItemAtPosition(position)
-        if (currentObject != null && holder is BaseViewHolder) {
-            holder.setItemOnClickListenerManager(manager!!.onClickListenerManager)
-            holder.layoutForObject(currentObject, position)
+        manager?.let {
+            val currentObject = it.getItemAtPosition(position)
+            currentObject?.let {
+                holder.setItemOnClickListenerManager(manager!!.onClickListenerManager)
+                holder.layoutForObject(currentObject, position)
+            }
         }
     }
 
     fun inflateViewFromLayout(parent: ViewGroup?, layoutId:Int): View? {
-        return if (parent == null) {
-            null
-        } else LayoutInflater.from(parent!!.context).inflate(layoutId, parent, false)
+        parent?.let {
+            return LayoutInflater.from(it.context).inflate(layoutId, parent, false)
+        }
+        return null
     }
 
 }
