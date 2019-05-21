@@ -1,5 +1,6 @@
 package com.ynov.kotlin.rickmorty.data
 
+import com.ynov.kotlin.rickmorty.data.entity.Character
 import com.ynov.kotlin.rickmorty.data.remote.CharacterResult
 import com.ynov.kotlin.rickmorty.data.remote.EpisodeResult
 import com.ynov.kotlin.rickmorty.data.remote.LocationResult
@@ -27,7 +28,7 @@ class ApiManager {
         fun retrieveEpisode(): Single<EpisodeResult>
 
         @GET("/api/character/{charactId}")
-        fun retrieveDetailCharactere(@Path("charactId") url: String)
+        fun retrieveDetailCharactere(@Path("charactId") url: String) : Single<Character>
     }
 
     init {
@@ -45,5 +46,5 @@ class ApiManager {
 
     fun retrieveEpisode() = service.retrieveEpisode()
 
-    fun retrieveDetailCharacter(url: String) = service.retrieveDetailCharactere(url);
+    fun retrieveDetailCharacter(url: String) = service.retrieveDetailCharactere(url)
 }
