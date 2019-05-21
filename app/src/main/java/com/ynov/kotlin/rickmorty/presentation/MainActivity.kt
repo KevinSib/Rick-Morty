@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity() {
         val apiManager: ApiManager = ApiManager()
         var characterResult: Single<CharacterResult> = DataRepository(apiManager).RetrieveCaracter()
 
-
     }
 
 }

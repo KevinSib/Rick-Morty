@@ -45,12 +45,14 @@ class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IIte
 
         super.onStart()
 
-        val adapter = CharactersRecyclerViewAdapters()
-        adapter.manager = this
-
         mRecyclerView?.let {
+
+            val adapter = CharactersRecyclerViewAdapters()
+            adapter.manager = this
+
             it.layoutManager = GridLayoutManager(context, 3)
             it.adapter = adapter
+
         }
 
     }
