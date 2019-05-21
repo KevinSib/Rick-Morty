@@ -39,9 +39,21 @@ class CharacterDetailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_character_detail, container, false)
     }
 
+    override fun onStart() {
+        super.onStart()
+        arguments?.let {
+            viewModel?.start(it.getLong(CHARACTER_ID))
+        }
+    }
+
     companion object {
+        val CHARACTER_ID: String = "CHAR_ID"
         @JvmStatic
-        fun newInstance() = CharactersFragment()
+        fun newInstance(id: Long) = CharactersFragment().apply {
+            arguments = Bundle().apply {
+                putLong(CHARACTER_ID, id)
+            }
+        }
     }
 
     //endregion

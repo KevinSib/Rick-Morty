@@ -12,9 +12,14 @@ class CharacterDetailViewModel : BaseViewModel() {
 
     var mItem: MutableLiveData<Character> = MutableLiveData()
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    fun onResume() {
-
+    fun start(id: Long) {
+        var characterResult: Single<Character> = RMApplication.app.dataRepository.retrieveDetailCharacter("$id")
+        var a =  characterResult
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ res ->
+                mItem.value = res
+            })
     }
 
 }
