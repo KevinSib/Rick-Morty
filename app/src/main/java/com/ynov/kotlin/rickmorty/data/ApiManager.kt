@@ -1,5 +1,6 @@
 package com.ynov.kotlin.rickmorty.data
 
+import data.remote.CharacterResult
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -13,8 +14,8 @@ class ApiManager {
     private val service: ApiService
 
     interface ApiService {
-        @GET("/things")
-        fun retrieveThings(): Single<Things>
+        @GET("/character")
+        fun retrieveThings(): Single<CharacterResult>
     }
 
     init {
