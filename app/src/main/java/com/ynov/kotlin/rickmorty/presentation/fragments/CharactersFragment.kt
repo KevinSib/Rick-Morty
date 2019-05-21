@@ -54,6 +54,7 @@ class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IIte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lifecycle.addObserver(viewModel)
     }
 
     override fun onCreateView(
@@ -74,13 +75,12 @@ class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IIte
             val adapter = CharactersRecyclerViewAdapters()
             adapter.manager = this
 
-            it.layoutManager = GridLayoutManager(context, 3)
+            it.layoutManager = GridLayoutManager(context, 2)
             it.adapter = adapter
 
         }
 
         viewModel.mItems.observe(this, itemChanged)
-        viewModel.loadData()
 
     }
 
