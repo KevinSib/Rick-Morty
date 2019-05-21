@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.ynov.kotlin.rickmorty.R
 import com.ynov.kotlin.rickmorty.data.ApiManager
+import com.ynov.kotlin.rickmorty.data.DataRepository
 import com.ynov.kotlin.rickmorty.data.remote.CharacterResult
 import retrofit2.Retrofit
 import rx.Single
@@ -15,8 +16,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-    val apiManager : ApiManager = ApiManager()
-        var characterResult :Single<CharacterResult> = apiManager.RetrieveCharacters()
+        val apiManager: ApiManager = ApiManager()
+        var characterResult: Single<CharacterResult> = DataRepository(apiManager).RetrieveCaracter()
+
 
     }
 

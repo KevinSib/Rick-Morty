@@ -29,5 +29,5 @@ class ApiManager {
             .create(ApiService::class.java)
     }
 
-    fun RetrieveCharacters()  = service.retrieveCharacters()
+   fun RetrieveCharacters() = service.retrieveCharacters()
 }
