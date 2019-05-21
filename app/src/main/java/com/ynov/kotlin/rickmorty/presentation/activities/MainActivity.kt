@@ -1,18 +1,10 @@
-package com.ynov.kotlin.rickmorty.presentation
+package com.ynov.kotlin.rickmorty.presentation.activities
 
 import android.os.Bundle
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.ynov.kotlin.rickmorty.R
-import com.ynov.kotlin.rickmorty.data.ApiManager
-import com.ynov.kotlin.rickmorty.data.DataRepository
-import com.ynov.kotlin.rickmorty.data.remote.CharacterResult
 import com.ynov.kotlin.rickmorty.presentation.fragments.CharactersFragment
-import io.reactivex.android.schedulers.AndroidSchedulers
-
-import io.reactivex.Single
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
 

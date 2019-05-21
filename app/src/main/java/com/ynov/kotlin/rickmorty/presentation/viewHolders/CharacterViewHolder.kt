@@ -1,7 +1,6 @@
 package com.ynov.kotlin.rickmorty.presentation.viewHolders
 
 import android.view.View
-import android.widget.ImageView
 import android.widget.TextView
 import com.squareup.picasso.Picasso
 import com.ynov.kotlin.rickmorty.R

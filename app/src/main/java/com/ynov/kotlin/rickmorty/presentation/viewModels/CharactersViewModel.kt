@@ -24,4 +24,6 @@ class CharactersViewModel : ViewModel(), LifecycleObserver {
             })
     }
 
+
+
 }
