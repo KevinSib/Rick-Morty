@@ -21,4 +21,5 @@ class MainActivity : AppCompatActivity() {
         var characterResult: Single<CharacterResult> = DataRepository(apiManager).RetrieveCaracter()
 
     }
+
 }
