@@ -13,6 +13,7 @@ import com.ynov.kotlin.rickmorty.data.ApiManager
 import com.ynov.kotlin.rickmorty.data.DataRepository
 import com.ynov.kotlin.rickmorty.data.entity.Character
 import com.ynov.kotlin.rickmorty.data.remote.CharacterResult
+import com.ynov.kotlin.rickmorty.presentation.RMApplication
 import com.ynov.kotlin.rickmorty.presentation.adapters.BaseRecyclerViewAdapter.IRecyclerViewManager
 import com.ynov.kotlin.rickmorty.presentation.adapters.CharactersRecyclerViewAdapters
 import com.ynov.kotlin.rickmorty.presentation.viewHolders.BaseViewHolder
@@ -61,8 +62,7 @@ class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IIte
 
         }
 
-        val apiManager: ApiManager = ApiManager()
-        var characterResult: Single<CharacterResult> = DataRepository(apiManager).RetrieveCaracter()
+        var characterResult: Single<CharacterResult> = RMApplication.app.dataRepository.RetrieveCaracter()
 
         var a =  characterResult
             .subscribeOn(Schedulers.io())
