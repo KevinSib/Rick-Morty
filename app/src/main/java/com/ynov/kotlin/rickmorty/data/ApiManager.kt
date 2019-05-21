@@ -16,7 +16,7 @@ class ApiManager {
     interface ApiService {
 
         @GET("/character")
-        fun retrieveThings(): Single<CharacterResult>
+        fun retrieveCharacters(): Single<CharacterResult>
 
     }
 
@@ -28,4 +28,6 @@ class ApiManager {
             .build()
             .create(ApiService::class.java)
     }
+
+    fun RetrieveCharacters()  = service.retrieveCharacters()
 }
