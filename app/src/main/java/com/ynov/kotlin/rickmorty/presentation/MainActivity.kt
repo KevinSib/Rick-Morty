@@ -20,15 +20,15 @@ class MainActivity : AppCompatActivity() {
         val apiManager: ApiManager = ApiManager()
         var characterResult: Single<CharacterResult> = DataRepository(apiManager).RetrieveCaracter()
 
-       var a =  characterResult
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ res ->
+           var a =  characterResult
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ res ->
 
 
-                print(res.results.get(0).id)
-            }
-        )
+                    print(res.results.get(0).id)
+                }
+            )
     }
 
 }
