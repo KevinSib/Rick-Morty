@@ -1,6 +1,6 @@
 package com.ynov.kotlin.rickmorty.data.entity
 
-data class Result (
+data class Character (
     val id: Long,
     val name: String,
     val status: String,
