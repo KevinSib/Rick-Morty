@@ -8,12 +8,9 @@ import com.ynov.kotlin.rickmorty.presentation.fragments.CharactersFragment
 
 class MainActivity : AppCompatActivity() {
 
-    var fragmentContainer: LinearLayout? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        fragmentContainer = findViewById(R.id.activity_main_container)
         initFragment()
     }
 

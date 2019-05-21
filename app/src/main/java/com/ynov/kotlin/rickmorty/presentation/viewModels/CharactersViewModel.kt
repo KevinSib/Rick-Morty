@@ -9,7 +9,7 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class CharactersViewModel : ViewModel(), LifecycleObserver {
+class CharactersViewModel : BaseViewModel() {
 
     var mItems: MutableLiveData<MutableList<Character>> = MutableLiveData()
 
@@ -23,7 +23,5 @@ class CharactersViewModel : ViewModel(), LifecycleObserver {
                 mItems.value = res.results.toMutableList()
             })
     }
-
-
 
 }
