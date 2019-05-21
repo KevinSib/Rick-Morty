@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
+
     val apiManager : ApiManager = ApiManager()
         var characterResult :Single<CharacterResult> = apiManager.RetrieveCharacters()
 
