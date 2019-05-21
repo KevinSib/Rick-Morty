@@ -7,13 +7,13 @@ import com.ynov.kotlin.rickmorty.data.DataRepository
 class RMApplication : Application() {
     companion object {
         lateinit var app: RMApplication
-
     }
+
     lateinit var dataRepository: DataRepository
 
     override fun onCreate() {
         super.onCreate()
-        app = this;
+        app = this
     }
 
     fun initInjection() {

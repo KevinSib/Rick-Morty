@@ -3,6 +3,10 @@ package com.ynov.kotlin.rickmorty.data
 class DataRepository (
     private val apiManager : ApiManager){
 
-   fun RetrieveCaracter () =  apiManager.RetrieveCharacters()
+   fun retrieveCaracter () =  apiManager.retrieveCharacters()
+
+    fun retrieveLocation () = apiManager.retrieveLocation()
+
+   fun  retrieveEpisode() = apiManager.retrieveEpisode()
 
 }

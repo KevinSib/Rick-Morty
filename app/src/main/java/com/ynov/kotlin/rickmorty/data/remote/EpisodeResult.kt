@@ -1,9 +1,9 @@
 package com.ynov.kotlin.rickmorty.data.remote
 
+import com.ynov.kotlin.rickmorty.data.entity.Episode
 import com.ynov.kotlin.rickmorty.data.entity.Info
-import com.ynov.kotlin.rickmorty.data.entity.Location
 
-data class LocationResult (
+data class EpisodeResult (
     val info: Info,
-    val results: List<Location>
+    val results: List<Episode>
 )

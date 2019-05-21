@@ -9,6 +9,7 @@ import com.ynov.kotlin.rickmorty.data.remote.CharacterResult
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 import io.reactivex.Single
+import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
@@ -18,15 +19,15 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val apiManager: ApiManager = ApiManager()
-        var characterResult: Single<CharacterResult> = DataRepository(apiManager).RetrieveCaracter()
+        var characterResult: Single<CharacterResult> = DataRepository(apiManager).retrieveCaracter()
 
-           var a =  characterResult
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ res ->
+        var a = characterResult
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(
+                onSuccess = { it -> print(it.results.get(0))
+                }, onError = {it-> print(it.)
 
-
-                    print(res.results.get(0).id)
                 }
             )
     }
