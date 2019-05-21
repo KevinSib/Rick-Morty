@@ -62,7 +62,7 @@ class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IIte
 
         }
 
-        var characterResult: Single<CharacterResult> = RMApplication.app.dataRepository.RetrieveCaracter()
+        var characterResult: Single<CharacterResult> = RMApplication.app.dataRepository.retrieveCharacter()
 
         var a =  characterResult
             .subscribeOn(Schedulers.io())
@@ -93,6 +93,7 @@ class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IIte
 
     override fun OnClickRecyclerViewItem(obj: Any, atPosition: Int) {
         //  TODO React to item clicks
+        print("click on item !")
     }
 
     //endregion
