@@ -10,7 +10,7 @@ class RMApplication : Application() {
         lateinit var app: RMApplication
     }
 
-    lateinit var dataRepository: DataRepository
+    lateinit var episodeRepository: IEpisodeRepository
     lateinit var characterRepository: ICharacterRepository
 
     override fun onCreate() {
@@ -20,11 +20,14 @@ class RMApplication : Application() {
     }
 
     private fun initInjection() {
-        dataRepository = DataRepository(ApiManager())
         characterRepository =  CharacterCacheRepository(
             CharacterRepository(ApiManager()),
             CharacterResultCache()
         )
+        episodeRepository =  EpisodeCacheRepository(
+            EpisodeRepository(ApiManager()),
+            EpisodeResultCache()
+        )
     }
-    
+
 }

@@ -59,14 +59,12 @@ class CharacterCacheRepository(
 
     override fun getCharacters(): Single<CharacterResult> {
         if (characterResCache.hasCharacters) {
-            print("from cache")
             return Single.create { emitter ->
                 characterResCache.getResult()?.let {
                     emitter.onSuccess(it)
                 }
             }
         } else {
-            print("from api")
             return delegate.getCharacters().doOnSuccess { characters ->
                 characterResCache.setResult(characters)
             }
