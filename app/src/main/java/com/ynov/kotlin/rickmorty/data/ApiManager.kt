@@ -5,11 +5,14 @@ import com.ynov.kotlin.rickmorty.data.remote.CharacterResult
 import com.ynov.kotlin.rickmorty.data.remote.EpisodeResult
 import com.ynov.kotlin.rickmorty.data.remote.LocationResult
 import io.reactivex.Single
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import java.util.logging.Level
 
 private const val API_BASE_URL = "https://rickandmortyapi.com/"
 
@@ -28,7 +31,7 @@ class ApiManager {
         fun retrieveEpisode(): Single<EpisodeResult>
 
         @GET("/api/character/{charactId}")
-        fun retrieveDetailCharactere(@Path("charactId") url: String) : Single<Character>
+        fun retrieveDetailCharactere(@Path("charactId") url: String): Single<Character>
     }
 
     init {
@@ -36,7 +39,10 @@ class ApiManager {
             .baseUrl(API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
+            .client(
+                OkHttpClient().newBuilder().addInterceptor(HttpLoggingInterceptor().apply { HttpLoggingInterceptor.Level.BASIC })
+                    .build()
+            ).build()
             .create(ApiService::class.java)
     }
 
