@@ -16,10 +16,9 @@ class CharacterDetailViewModel : BaseViewModel() {
     var mItem: MutableLiveData<Character> = MutableLiveData()
     private var onSubscribe: Disposable? = null
 
-    @SuppressLint("CheckResult")
     fun start(id: Long) {
         mIsLoading.value = true
-        val characterResult: Single<Character> = RMApplication.app.dataRepository.retrieveDetailCharacter("$id")
+        val characterResult: Single<Character> = RMApplication.app.characterRepository.getCharacterById(id)
         onSubscribe = characterResult
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

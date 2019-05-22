@@ -2,7 +2,7 @@ package com.ynov.kotlin.rickmorty.presentation
 
 import android.app.Application
 import com.ynov.kotlin.rickmorty.data.ApiManager
-import com.ynov.kotlin.rickmorty.data.DataRepository
+import com.ynov.kotlin.rickmorty.data.repositories.*
 
 class RMApplication : Application() {
     companion object {
@@ -10,6 +10,7 @@ class RMApplication : Application() {
     }
 
     lateinit var dataRepository: DataRepository
+    lateinit var characterRepository: ICharacterRepository
 
     override fun onCreate() {
         super.onCreate()
@@ -19,5 +20,9 @@ class RMApplication : Application() {
 
     private fun initInjection() {
         dataRepository = DataRepository(ApiManager())
+        characterRepository =  CharacterCacheRepository(
+            CharacterRepository(ApiManager()),
+            CharacterCache()
+        )
     }
 }

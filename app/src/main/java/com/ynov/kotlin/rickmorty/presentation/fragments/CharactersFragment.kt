@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ynov.kotlin.rickmorty.R
 import com.ynov.kotlin.rickmorty.data.entity.Character
 import com.ynov.kotlin.rickmorty.presentation.activities.CharacterDetailActivity
@@ -16,15 +17,14 @@ import com.ynov.kotlin.rickmorty.presentation.adapters.BaseRecyclerViewAdapter.I
 import com.ynov.kotlin.rickmorty.presentation.adapters.CharactersRecyclerViewAdapters
 import com.ynov.kotlin.rickmorty.presentation.viewHolders.BaseViewHolder
 import com.ynov.kotlin.rickmorty.presentation.viewModels.CharactersViewModel
+import kotlinx.android.synthetic.main.fragment_characters.*
 
 
-class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IItemOnClickListener {
+class CharactersFragment : BaseFragment<CharactersViewModel>(), IRecyclerViewManager, BaseViewHolder.IItemOnClickListener {
 
-    private var mRecyclerView: RecyclerView? = null
+    override val viewModelClass = CharactersViewModel::class.java
 
-    private val viewModel: CharactersViewModel by lazy {
-        ViewModelProviders.of(this).get(CharactersViewModel::class.java)
-    }
+    override var layoutId: Int = R.layout.fragment_characters
 
     override val onClickListenerManager: BaseViewHolder.IItemOnClickListener
         get() = this
@@ -39,10 +39,6 @@ class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IIte
             return mutableListOf()
         }
 
-    private val itemChanged = Observer<MutableList<Character>> { value ->
-        mRecyclerView?.adapter?.notifyDataSetChanged()
-    }
-
     //region Default Methods
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,20 +46,9 @@ class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IIte
         lifecycle.addObserver(viewModel)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_characters, container, false)
-        mRecyclerView = view.findViewById(R.id.fragment_characters_recyclerview)
-        return view
-    }
-
     override fun onStart() {
-
         super.onStart()
-
-        mRecyclerView?.let {
+        fragment_characters_recyclerview?.let {
 
             val adapter = CharactersRecyclerViewAdapters()
             adapter.manager = this
@@ -72,9 +57,22 @@ class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IIte
             it.adapter = adapter
 
         }
+        fragment_characters_swipe.setOnRefreshListener {
+            viewModel.loadData()
+        }
+    }
 
-        viewModel.mItems.observe(this, itemChanged)
-
+    override fun initViewModelObserver() {
+        viewModel.mItems.observe(this, Observer {
+            fragment_characters_swipe.isRefreshing = false
+            fragment_characters_recyclerview?.adapter?.notifyDataSetChanged()
+        })
+        viewModel.mIsLoading.observe(this, Observer {
+            if (it)
+                startLoading()
+            else
+                stopLoading()
+        })
     }
 
     companion object {
@@ -98,6 +96,20 @@ class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IIte
             val newIntent = CharacterDetailActivity.newIntent(requireContext(), obj.id)
             startActivity(newIntent)
         }
+    }
+
+    //endregion
+
+    //region Loading management
+
+    fun startLoading() {
+        fragment_character_progressbar.visibility = View.VISIBLE
+        fragment_character_loading_group.visibility = View.GONE
+    }
+
+    fun stopLoading() {
+        fragment_character_progressbar.visibility = View.GONE
+        fragment_character_loading_group.visibility = View.VISIBLE
     }
 
     //endregion

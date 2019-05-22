@@ -1,4 +1,6 @@
-package com.ynov.kotlin.rickmorty.data
+package com.ynov.kotlin.rickmorty.data.repositories
+
+import com.ynov.kotlin.rickmorty.data.ApiManager
 
 class DataRepository(
     private val apiManager: ApiManager
