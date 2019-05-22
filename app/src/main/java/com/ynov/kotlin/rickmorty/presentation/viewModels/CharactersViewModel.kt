@@ -37,5 +37,6 @@ class CharactersViewModel : BaseViewModel() {
                 mItems.value = res.results.toMutableList()
             }
     }
+
 }
 

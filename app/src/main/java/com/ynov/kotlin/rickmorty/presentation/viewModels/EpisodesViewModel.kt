@@ -39,4 +39,5 @@ class EpisodesViewModel : BaseViewModel() {
                 mItems.value = res.results.toMutableList()
             }
     }
+
 }

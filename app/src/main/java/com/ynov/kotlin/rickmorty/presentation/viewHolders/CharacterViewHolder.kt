@@ -15,10 +15,7 @@ class CharacterViewHolder(itemView: View) : BaseViewHolder(itemView) {
             val nameTextView = itemView.findViewById<TextView>(R.id.cell_character_name)
             nameTextView.text = obj.name
             val picImageView = itemView.findViewById<SquareImageView>(R.id.cell_character_picture)
-            Picasso
-                .get()
-                .load(obj.image)
-                .into(picImageView)
+            Picasso.get().load(obj.image).into(picImageView)
         }
     }
 
