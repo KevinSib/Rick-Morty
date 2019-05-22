@@ -2,5 +2,6 @@
     <string name="app_name">Rick &amp; Morty</string>
     <string name="menu_nav_characters">Personnages</string>
     <string name="menu_nav_episodes">Episodes</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="common_origin">Origines</string>
+    <string name="common_location">Localité</string>s
 </resources>
