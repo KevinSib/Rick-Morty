@@ -1,13 +1,13 @@
 package com.ynov.kotlin.rickmorty.presentation.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -86,7 +86,6 @@ class CharacterDetailFragment(var characterId: Long) : Fragment(),
     }
 
     companion object {
-        val CHARACTER_ID: String = "CHAR_ID"
         fun newInstance(id: Long) = CharacterDetailFragment(id)
     }
 
@@ -159,9 +158,10 @@ class CharacterDetailFragment(var characterId: Long) : Fragment(),
 
     override fun getItemAtPosition(position: Int): Any = items.get(position)
 
-    override fun OnClickRecyclerViewItem(obj: Any, atPosition: Int) {
+    override fun onClickRecyclerViewItem(obj: Any, atPosition: Int) {
         //  TODO manage click if needed
     }
+
 
     //endregion
 

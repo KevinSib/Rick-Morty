@@ -19,7 +19,7 @@ abstract class BaseRecyclerViewAdapter: RecyclerView.Adapter<BaseViewHolder>() {
 
     var manager: IRecyclerViewManager? = null
 
-    val nbOfItems: Int
+    private val nbOfItems: Int
         get() = manager?.numberOfItem() ?: 0
 
     override fun getItemCount(): Int {
@@ -34,7 +34,7 @@ abstract class BaseRecyclerViewAdapter: RecyclerView.Adapter<BaseViewHolder>() {
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         manager?.let {
             val currentObject = it.getItemAtPosition(position)
-            currentObject?.let {
+            currentObject.let {
                 holder.setItemOnClickListenerManager(manager!!.onClickListenerManager)
                 holder.layoutForObject(currentObject, position)
             }

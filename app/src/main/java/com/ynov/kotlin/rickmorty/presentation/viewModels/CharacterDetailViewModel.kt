@@ -1,28 +1,36 @@
 package com.ynov.kotlin.rickmorty.presentation.viewModels
 
-import androidx.lifecycle.*
+import android.annotation.SuppressLint
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.OnLifecycleEvent
 import com.ynov.kotlin.rickmorty.data.entity.Character
-import com.ynov.kotlin.rickmorty.data.entity.Episode
-import com.ynov.kotlin.rickmorty.data.remote.CharacterResult
 import com.ynov.kotlin.rickmorty.presentation.RMApplication
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class CharacterDetailViewModel : BaseViewModel() {
 
     var mItem: MutableLiveData<Character> = MutableLiveData()
+    private var onSubscribe: Disposable? = null
 
+    @SuppressLint("CheckResult")
     fun start(id: Long) {
         mIsLoading.value = true
-        var characterResult: Single<Character> = RMApplication.app.dataRepository.retrieveDetailCharacter("$id")
-        var a =  characterResult
+        val characterResult: Single<Character> = RMApplication.app.dataRepository.retrieveDetailCharacter("$id")
+        onSubscribe = characterResult
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ res ->
+            .subscribe { res ->
                 mIsLoading.value = false
                 mItem.value = res
-            })
+            }
     }
 
+    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
+    fun onStop() {
+        onSubscribe?.dispose()
+    }
 }

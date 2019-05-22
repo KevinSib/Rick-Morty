@@ -20,7 +20,7 @@ import com.ynov.kotlin.rickmorty.presentation.viewModels.CharactersViewModel
 
 class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IItemOnClickListener {
 
-    var mRecyclerView: RecyclerView? = null
+    private var mRecyclerView: RecyclerView? = null
 
     private val viewModel: CharactersViewModel by lazy {
         ViewModelProviders.of(this).get(CharactersViewModel::class.java)
@@ -31,8 +31,8 @@ class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IIte
 
     override val items: MutableList<Any>
         get() {
-            viewModel?.let {
-                it.mItems.value?.let {
+            viewModel.let {
+                it.mItems.value?.let { it ->
                     return it as MutableList<Any>
                 }
             }
@@ -55,7 +55,7 @@ class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IIte
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_characters, container, false)
-        mRecyclerView = view.findViewById<RecyclerView>(R.id.fragment_characters_recyclerview)
+        mRecyclerView = view.findViewById(R.id.fragment_characters_recyclerview)
         return view
     }
 
@@ -87,13 +87,13 @@ class CharactersFragment : Fragment(), IRecyclerViewManager, BaseViewHolder.IIte
 
     override fun numberOfItem(): Int = items.size
 
-    override fun getItemAtPosition(position: Int): Any = items.get(position)
+    override fun getItemAtPosition(position: Int): Any = items[position]
 
     //endregion
 
     //region ItemClick Delegate Methods
 
-    override fun OnClickRecyclerViewItem(obj: Any, atPosition: Int) {
+    override fun onClickRecyclerViewItem(obj: Any, atPosition: Int) {
         if (obj is Character) {
             val newIntent = CharacterDetailActivity.newIntent(requireContext(), obj.id)
             startActivity(newIntent)

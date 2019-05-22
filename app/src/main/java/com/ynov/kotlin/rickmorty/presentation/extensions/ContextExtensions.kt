@@ -1,11 +1,9 @@
 package com.ynov.kotlin.rickmorty.presentation.extensions
 
 import android.app.AlertDialog
-import android.app.Dialog
+import android.app.ProgressDialog
 import android.content.Context
 import android.widget.Toast
-import android.app.ProgressDialog
-
 
 
 fun Context.showLoading(): ProgressDialog {
@@ -18,7 +16,7 @@ fun Context.showMessage(title: String, message: String) {
     val builder = AlertDialog.Builder(this)
     builder.setTitle(title)
     builder.setMessage(message)
-    builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+    builder.setPositiveButton(android.R.string.yes) { dialog, _ ->
         dialog.dismiss()
     }
     builder.show()
