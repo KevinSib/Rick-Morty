@@ -1,5 +1,17 @@
 <resources>
     <string name="app_name">Rick&amp;Morty</string>
+    <string name="fragment_character_detail_image_description">character\'s picture</string>
+    <string name="fragment_character_detail_title_name">Name</string>
+    <string name="fragment_character_detail_status_title">Status</string>
+    <string name="fragment_character_detail_specie">Specie</string>
+    <string name="fragment_character_detail_type_title">Type</string>
+    <string name="fragment_character_detail_gender_title">Gender</string>
+    <string name="fragment_character_detail_origin_title">Origin</string>
+    <string name="fragment_character_detail_origin">Origin</string>
+    <string name="fragment_character_detail_title_location">Location :</string>
+    <string name="fragment_character_detail_location">Location</string>
+    <string name="fragment_character_detail_title_detail">location :</string>
+    <string name="fragment_character_detail_title_origin">Origin :</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

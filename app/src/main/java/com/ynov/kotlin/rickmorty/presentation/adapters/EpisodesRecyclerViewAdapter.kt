@@ -3,7 +3,6 @@ package com.ynov.kotlin.rickmorty.presentation.adapters
 import android.view.ViewGroup
 import com.ynov.kotlin.rickmorty.R
 import com.ynov.kotlin.rickmorty.presentation.viewHolders.BaseViewHolder
-import com.ynov.kotlin.rickmorty.presentation.viewHolders.CharacterViewHolder
 import com.ynov.kotlin.rickmorty.presentation.viewHolders.EpisodeViewHolder
 
 class EpisodesRecyclerViewAdapters: BaseRecyclerViewAdapter() {

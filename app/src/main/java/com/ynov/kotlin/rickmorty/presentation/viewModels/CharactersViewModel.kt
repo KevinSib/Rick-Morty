@@ -1,6 +1,5 @@
 package com.ynov.kotlin.rickmorty.presentation.viewModels
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
@@ -15,7 +14,7 @@ import io.reactivex.schedulers.Schedulers
 class CharactersViewModel : BaseViewModel() {
 
     var mItems: MutableLiveData<MutableList<Character>> = MutableLiveData()
-    private var onSubscribe: Disposable? = null;
+    private var onSubscribe: Disposable? = null
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {

@@ -22,7 +22,7 @@ import com.ynov.kotlin.rickmorty.presentation.viewModels.CharacterDetailViewMode
 import jp.wasabeef.picasso.transformations.BlurTransformation
 
 
-class CharacterDetailFragment(var characterId: Long) : Fragment(),
+class CharacterDetailFragment(private var characterId: Long) : Fragment(),
     BaseRecyclerViewAdapter.IRecyclerViewManager,
     BaseViewHolder.IItemOnClickListener {
 
@@ -30,8 +30,8 @@ class CharacterDetailFragment(var characterId: Long) : Fragment(),
 
     override val items: MutableList<Any>
         get() {
-            viewModel?.let {
-                it.mItem.value?.let {
+            viewModel.let {
+                it.mItem.value?.let { it ->
                     return mutableListOf(it.episode)
                 }
             }
@@ -156,7 +156,7 @@ class CharacterDetailFragment(var characterId: Long) : Fragment(),
 
     override fun numberOfItem(): Int = items.size
 
-    override fun getItemAtPosition(position: Int): Any = items.get(position)
+    override fun getItemAtPosition(position: Int): Any = items[position]
 
     override fun onClickRecyclerViewItem(obj: Any, atPosition: Int) {
         //  TODO manage click if needed
