@@ -5,6 +5,7 @@ import com.ynov.kotlin.rickmorty.data.ApiManager
 import com.ynov.kotlin.rickmorty.data.repositories.*
 
 class RMApplication : Application() {
+
     companion object {
         lateinit var app: RMApplication
     }
@@ -22,7 +23,8 @@ class RMApplication : Application() {
         dataRepository = DataRepository(ApiManager())
         characterRepository =  CharacterCacheRepository(
             CharacterRepository(ApiManager()),
-            CharacterCache()
+            CharacterResultCache()
         )
     }
+    
 }
