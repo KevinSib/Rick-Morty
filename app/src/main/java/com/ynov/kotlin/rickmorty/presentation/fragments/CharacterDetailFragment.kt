@@ -1,17 +1,9 @@
 package com.ynov.kotlin.rickmorty.presentation.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
 import com.ynov.kotlin.rickmorty.R
@@ -20,18 +12,23 @@ import com.ynov.kotlin.rickmorty.presentation.adapters.EpisodesRecyclerViewAdapt
 import com.ynov.kotlin.rickmorty.presentation.viewHolders.BaseViewHolder
 import com.ynov.kotlin.rickmorty.presentation.viewModels.CharacterDetailViewModel
 import jp.wasabeef.picasso.transformations.BlurTransformation
+import kotlinx.android.synthetic.main.fragment_character_detail.*
 
 
-class CharacterDetailFragment(private var characterId: Long) : Fragment(),
+class CharacterDetailFragment(var characterId: Long) : BaseFragment<CharacterDetailViewModel>(),
     BaseRecyclerViewAdapter.IRecyclerViewManager,
     BaseViewHolder.IItemOnClickListener {
 
     //region Variables
 
+    override var layoutId: Int = R.layout.fragment_character_detail
+
+    override val viewModelClass: Class<CharacterDetailViewModel> = CharacterDetailViewModel::class.java
+
     override val items: MutableList<Any>
         get() {
             viewModel.let {
-                it.mItem.value?.let { it ->
+                it.mItem.value?.let {
                     return mutableListOf(it.episode)
                 }
             }
@@ -41,22 +38,6 @@ class CharacterDetailFragment(private var characterId: Long) : Fragment(),
     override val onClickListenerManager: BaseViewHolder.IItemOnClickListener
         get() = this
 
-    private var mName: TextView? = null
-    private var mStatus: TextView? = null
-    private var mSpecie: TextView? = null
-    private var mType: TextView? = null
-    private var mGender: TextView? = null
-    private var mOrigin: TextView? = null
-    private var mLocation: TextView? = null
-    private var mLoadingProgress: ProgressBar? = null
-    private var mRecyclerView: RecyclerView? = null
-    private var mCoverImageView: ImageView? = null
-    private var mProfilImageView: ImageView? = null
-
-    private val viewModel: CharacterDetailViewModel by lazy {
-        ViewModelProviders.of(this).get(CharacterDetailViewModel::class.java)
-    }
-
     //endregion
 
     //region Default Methods
@@ -64,25 +45,16 @@ class CharacterDetailFragment(private var characterId: Long) : Fragment(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(viewModel)
-        initViewModelObserver()
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val r = inflater.inflate(R.layout.fragment_character_detail, container, false)
-        initView(r)
-        return r
     }
 
     override fun onStart() {
-
         super.onStart()
-
         initRecyclerView()
-        viewModel.start(id = characterId)
+    }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.start(id = characterId)
     }
 
     companion object {
@@ -93,22 +65,8 @@ class CharacterDetailFragment(private var characterId: Long) : Fragment(),
 
     //region Methods
 
-    private fun initView(view: View) {
-        mLoadingProgress = view.findViewById(R.id.fragment_characters_detail_loading_progressbar)
-        mRecyclerView = view.findViewById(R.id.fragment_charactersd_detail_recyclerview)
-        mName = view.findViewById(R.id.fragment_character_detail_name_textview)
-        mStatus = view.findViewById(R.id.fragment_character_detail_status_textview)
-        mSpecie = view.findViewById(R.id.fragment_character_detail_specie_textview)
-        mType = view.findViewById(R.id.fragment_character_detail_type_textview)
-        mOrigin = view.findViewById(R.id.fragment_character_detail_origin_textview)
-        mLocation = view.findViewById(R.id.fragment_character_detail_location_textview)
-        mGender = view.findViewById(R.id.fragment_character_detail_gender_textview)
-        mCoverImageView = view.findViewById(R.id.fragment_character_detail_cover_imageview)
-        mProfilImageView = view.findViewById(R.id.fragment_character_detail_profil_imageview)
-    }
-
     private fun initRecyclerView() {
-        mRecyclerView?.let {
+        fragment_charactersd_detail_recyclerview?.let {
 
             val adapter = EpisodesRecyclerViewAdapters()
             adapter.manager = this
@@ -119,12 +77,15 @@ class CharacterDetailFragment(private var characterId: Long) : Fragment(),
         }
     }
 
-    private fun initViewModelObserver() {
+    override fun initViewModelObserver() {
         viewModel.mIsLoading.observe(this, Observer {
-            mLoadingProgress?.visibility = if (it) View.VISIBLE else View.GONE
+            if (it)
+                startLoading()
+            else
+                stopLoading()
         })
         viewModel.mItem.observe(this, Observer {
-            mCoverImageView?.let { imgView ->
+            fragment_character_detail_cover_imageview?.let { imgView ->
                 Picasso
                     .get()
                     .load(it.image)
@@ -133,21 +94,31 @@ class CharacterDetailFragment(private var characterId: Long) : Fragment(),
                     .transform(BlurTransformation(requireContext(), 25, 1))
                     .into(imgView)
             }
-            mProfilImageView?.let { imgView ->
+            fragment_character_detail_profil_imageview?.let { imgView ->
                 Picasso
                     .get()
                     .load(it.image)
                     .into(imgView)
             }
-            mName?.text = it.name
-            mStatus?.text = it.status
-            mSpecie?.text = it.species
-            mGender?.text = it.gender
-            mType?.text = it.type
-            mOrigin?.text = it.origin.name
-            mLocation?.text = it.location.name
-            mRecyclerView?.adapter?.notifyDataSetChanged()
+            fragment_character_detail_name_textview?.text = it.name
+            fragment_character_detail_status_textview?.text = it.status
+            fragment_character_detail_specie_textview?.text = it.species
+            fragment_character_detail_gender_textview?.text = it.gender
+            fragment_character_detail_type_textview?.text = it.type
+            fragment_character_detail_origin_textview?.text = it.origin.name
+            fragment_character_detail_location_textview?.text = it.location.name
+            fragment_charactersd_detail_recyclerview?.adapter?.notifyDataSetChanged()
         })
+    }
+
+    private fun startLoading() {
+        fragment_characters_detail_loading_progressbar.visibility = View.VISIBLE
+        //  TODO group invisible
+    }
+
+    private fun stopLoading() {
+        fragment_characters_detail_loading_progressbar.visibility = View.GONE
+        //  TODO group visible
     }
 
     //endregion

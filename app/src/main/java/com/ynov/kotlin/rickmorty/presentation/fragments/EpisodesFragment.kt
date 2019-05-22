@@ -1,30 +1,27 @@
 package com.ynov.kotlin.rickmorty.presentation.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.LinearLayout
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ynov.kotlin.rickmorty.R
-import com.ynov.kotlin.rickmorty.data.entity.Character
-import com.ynov.kotlin.rickmorty.presentation.activities.CharacterDetailActivity
-import com.ynov.kotlin.rickmorty.presentation.adapters.BaseRecyclerViewAdapter.IRecyclerViewManager
+import com.ynov.kotlin.rickmorty.presentation.adapters.BaseRecyclerViewAdapter
 import com.ynov.kotlin.rickmorty.presentation.adapters.CharactersRecyclerViewAdapters
+import com.ynov.kotlin.rickmorty.presentation.adapters.EpisodesRecyclerViewAdapters
 import com.ynov.kotlin.rickmorty.presentation.viewHolders.BaseViewHolder
-import com.ynov.kotlin.rickmorty.presentation.viewModels.CharactersViewModel
-import kotlinx.android.synthetic.main.fragment_characters.*
+import com.ynov.kotlin.rickmorty.presentation.viewModels.EpisodesViewModel
+import kotlinx.android.synthetic.main.fragment_episodes.*
 
+class EpisodesFragment : BaseFragment<EpisodesViewModel>(),
+    BaseRecyclerViewAdapter.IRecyclerViewManager,
+    BaseViewHolder.IItemOnClickListener {
 
-class CharactersFragment : BaseFragment<CharactersViewModel>(), IRecyclerViewManager, BaseViewHolder.IItemOnClickListener {
+    override val viewModelClass = EpisodesViewModel::class.java
 
-    override val viewModelClass = CharactersViewModel::class.java
-
-    override var layoutId: Int = R.layout.fragment_characters
+    override var layoutId: Int = R.layout.fragment_episodes
 
     override val onClickListenerManager: BaseViewHolder.IItemOnClickListener
         get() = this
@@ -48,24 +45,24 @@ class CharactersFragment : BaseFragment<CharactersViewModel>(), IRecyclerViewMan
 
     override fun onStart() {
         super.onStart()
-        fragment_characters_recyclerview?.let {
+        fragment_episodes_recyclerview?.let {
 
-            val adapter = CharactersRecyclerViewAdapters()
+            val adapter = EpisodesRecyclerViewAdapters()
             adapter.manager = this
 
-            it.layoutManager = GridLayoutManager(context, 2)
+            it.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
             it.adapter = adapter
 
         }
-        fragment_characters_swipe.setOnRefreshListener {
+        fragment_episodes_swipe.setOnRefreshListener {
             viewModel.loadData()
         }
     }
 
     override fun initViewModelObserver() {
         viewModel.mItems.observe(this, Observer {
-            fragment_characters_swipe.isRefreshing = false
-            fragment_characters_recyclerview?.adapter?.notifyDataSetChanged()
+            fragment_episodes_swipe.isRefreshing = false
+            fragment_episodes_recyclerview?.adapter?.notifyDataSetChanged()
         })
         viewModel.mIsLoading.observe(this, Observer {
             if (it)
@@ -76,7 +73,7 @@ class CharactersFragment : BaseFragment<CharactersViewModel>(), IRecyclerViewMan
     }
 
     companion object {
-        fun newInstance() = CharactersFragment()
+        fun newInstance() = EpisodesFragment()
     }
 
     //endregion
@@ -92,10 +89,7 @@ class CharactersFragment : BaseFragment<CharactersViewModel>(), IRecyclerViewMan
     //region ItemClick Delegate Methods
 
     override fun onClickRecyclerViewItem(obj: Any, atPosition: Int) {
-        if (obj is Character) {
-            val newIntent = CharacterDetailActivity.newIntent(requireContext(), obj.id)
-            startActivity(newIntent)
-        }
+        //  TODO Implement click if needed
     }
 
     //endregion
@@ -103,13 +97,13 @@ class CharactersFragment : BaseFragment<CharactersViewModel>(), IRecyclerViewMan
     //region Loading management
 
     fun startLoading() {
-        fragment_character_progressbar.visibility = View.VISIBLE
-        fragment_character_loading_group.visibility = View.GONE
+        fragment_episodes_progressbar.visibility = View.VISIBLE
+        fragment_episodes_loading_group.visibility = View.GONE
     }
 
     fun stopLoading() {
-        fragment_character_progressbar.visibility = View.GONE
-        fragment_character_loading_group.visibility = View.VISIBLE
+        fragment_episodes_progressbar.visibility = View.GONE
+        fragment_episodes_loading_group.visibility = View.VISIBLE
     }
 
     //endregion

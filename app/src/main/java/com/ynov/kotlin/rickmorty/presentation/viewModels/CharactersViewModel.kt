@@ -18,18 +18,24 @@ class CharactersViewModel : BaseViewModel() {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
-        val characterResult: Single<CharacterResult> = RMApplication.app.dataRepository.retrieveCharacter()
-        onSubscribe = characterResult
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { res ->
-                mItems.value = res.results.toMutableList()
-            }
+        loadData()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onStop() {
         onSubscribe?.dispose()
+    }
+
+    fun loadData() {
+        mIsLoading.value = true
+        val characterResult: Single<CharacterResult> = RMApplication.app.characterRepository.getCharacters()
+        onSubscribe = characterResult
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { res ->
+                mIsLoading.value = false
+                mItems.value = res.results.toMutableList()
+            }
     }
 }
 

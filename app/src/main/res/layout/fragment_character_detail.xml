@@ -6,7 +6,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
-
+    <!--<androidx.constraintlayout.widget.Group
+            android:id="@+id/fragment_character_detail_loader_group"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            app:constraint_referenced_ids="
+                fragment_character_detail_name_textview,
+                fragment_character_detail_status_textview,
+            fragment_character_detail_specie_textview,
+fragment_character_detail_gender_textview,
+fragment_character_detail_type_textview,
+fragment_character_detail_origin_textview,
+fragment_character_detail_location_textview,
+fragment_charactersd_detail_recyclerview,
+fragment_character_detail_header_origin_textview,
+fragment_character_detail_header_location_textview"/>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_height="wrap_content"

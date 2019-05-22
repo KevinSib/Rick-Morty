@@ -14,4 +14,8 @@
     <string name="fragment_character_detail_title_origin">Origin :</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="menu_nav_characters">Personnages</string>
+    <string name="menu_nav_episodes">Episodes</string>
+    <string name="common_origin">Origines</string>
+    <string name="common_location">Localité</string>s
 </resources>
