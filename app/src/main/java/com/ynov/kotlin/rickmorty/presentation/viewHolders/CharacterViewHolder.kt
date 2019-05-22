@@ -10,11 +10,11 @@ import com.ynov.kotlin.rickmorty.presentation.widgets.SquareImageView
 class CharacterViewHolder(itemView: View) : BaseViewHolder(itemView) {
 
     override fun layoutForObject(obj: Any, atPosition: Int) {
-        super.layoutForObject(obj, atPosition);
+        super.layoutForObject(obj, atPosition)
         if (obj is Character) {
-            var nameTextView = itemView.findViewById<TextView>(R.id.cell_character_name)
+            val nameTextView = itemView.findViewById<TextView>(R.id.cell_character_name)
             nameTextView.text = obj.name
-            var picImageView = itemView.findViewById<SquareImageView>(R.id.cell_character_picture)
+            val picImageView = itemView.findViewById<SquareImageView>(R.id.cell_character_picture)
             Picasso
                 .get()
                 .load(obj.image)

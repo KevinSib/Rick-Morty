@@ -2,23 +2,20 @@ package com.ynov.kotlin.rickmorty.presentation.fragments
 
 import android.app.ProgressDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-
 import com.ynov.kotlin.rickmorty.R
-import com.ynov.kotlin.rickmorty.data.entity.Character
 import com.ynov.kotlin.rickmorty.presentation.extensions.showLoading
 import com.ynov.kotlin.rickmorty.presentation.viewModels.CharacterDetailViewModel
-import com.ynov.kotlin.rickmorty.presentation.viewModels.CharactersViewModel
 
 
-class CharacterDetailFragment(var characterId: Long) : Fragment() {
+class CharacterDetailFragment(private var characterId: Long) : Fragment() {
 
-    var loader: ProgressDialog? = null
+    private var loader: ProgressDialog? = null
 
     private val viewModel: CharacterDetailViewModel by lazy {
         ViewModelProviders.of(this).get(CharacterDetailViewModel::class.java)
@@ -36,24 +33,16 @@ class CharacterDetailFragment(var characterId: Long) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val r = inflater.inflate(R.layout.fragment_character_detail, container, false)
-
-        return r
+        return inflater.inflate(R.layout.fragment_character_detail, container, false)
     }
 
     override fun onStart() {
         super.onStart()
-        viewModel?.start(id = characterId)
+        viewModel.start(id = characterId)
     }
 
     companion object {
-        val CHARACTER_ID: String = "CHAR_ID"
         fun newInstance(id: Long) = CharacterDetailFragment(id)
-        /*CharacterDetailFragment().apply {
-            arguments = Bundle().apply {
-                putLong(CHARACTER_ID, id)
-            }
-        }*/
     }
 
     //endregion
@@ -61,9 +50,9 @@ class CharacterDetailFragment(var characterId: Long) : Fragment() {
     //region Methods
 
     private fun initViewModelObserver() {
-        viewModel.mIsLoading.observe(this, Observer {
+        viewModel.mIsLoading.observe(this, Observer { it ->
             if (it) {
-                context?.let {
+                context?.let { it ->
                     loader = it.showLoading()
                 }
             } else {

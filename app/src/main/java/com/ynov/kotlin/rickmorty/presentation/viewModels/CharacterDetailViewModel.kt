@@ -1,8 +1,8 @@
 package com.ynov.kotlin.rickmorty.presentation.viewModels
 
-import androidx.lifecycle.*
+import android.annotation.SuppressLint
+import androidx.lifecycle.MutableLiveData
 import com.ynov.kotlin.rickmorty.data.entity.Character
-import com.ynov.kotlin.rickmorty.data.remote.CharacterResult
 import com.ynov.kotlin.rickmorty.presentation.RMApplication
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -12,14 +12,14 @@ class CharacterDetailViewModel : BaseViewModel() {
 
     var mItem: MutableLiveData<Character> = MutableLiveData()
 
+    @SuppressLint("CheckResult")
     fun start(id: Long) {
-        var characterResult: Single<Character> = RMApplication.app.dataRepository.retrieveDetailCharacter("$id")
-        var a =  characterResult
+        val characterResult: Single<Character> = RMApplication.app.dataRepository.retrieveDetailCharacter("$id")
+        characterResult
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ res ->
+            .subscribe { res ->
                 mItem.value = res
-            })
+            }
     }
-
 }

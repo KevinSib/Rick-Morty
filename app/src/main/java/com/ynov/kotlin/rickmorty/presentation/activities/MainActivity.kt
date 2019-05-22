@@ -1,7 +1,6 @@
 package com.ynov.kotlin.rickmorty.presentation.activities
 
 import android.os.Bundle
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.ynov.kotlin.rickmorty.R
 import com.ynov.kotlin.rickmorty.presentation.fragments.CharactersFragment
