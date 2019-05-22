@@ -13,7 +13,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintHeight_percent="0.25" android:id="@+id/constraintLayout">
         <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/fragment_character_detail_cover_imageview"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:srcCompat="@color/colorAccent"
@@ -22,7 +22,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
         <com.ynov.kotlin.rickmorty.presentation.widgets.SquareImageView
-                android:id="@+id/squareImageView2"
+                android:id="@+id/fragment_character_detail_profil_imageview"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:srcCompat="@color/colorPrimary"
@@ -32,6 +32,7 @@
                 android:layout_marginLeft="16dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <ScrollView
+            android:id="@+id/fragment_character_detail_scrollview"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -44,6 +45,7 @@
                 android:orientation="vertical"
                 android:padding="24dp">
             <TextView
+                    android:id="@+id/fragment_character_detail_name_textview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Name"/>
@@ -52,13 +54,15 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                 <TextView
+                        android:id="@+id/fragment_character_detail_status_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Status"/>
                 <TextView
+                        android:id="@+id/fragment_character_detail_specie_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Status"
+                        android:text="Specie"
                         android:layout_marginLeft="16dp"/>
             </LinearLayout>
             <LinearLayout
@@ -66,14 +70,15 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                 <TextView
+                        android:id="@+id/fragment_character_detail_type_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Type"/>
                 <TextView
+                        android:id="@+id/fragment_character_detail_gender_textview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Gender"
-                        android:layout_marginLeft="16dp"/>
+                        android:text="Gender"/>
             </LinearLayout>
             <LinearLayout
                     android:layout_width="match_parent"
@@ -94,6 +99,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Origin"/>
                         <TextView
+                                android:id="@+id/fragment_character_detail_origin_textview"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Origin"
@@ -114,6 +120,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Location"/>
                         <TextView
+                                android:id="@+id/fragment_character_detail_location_textview"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Location"
@@ -129,4 +136,13 @@
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
     </ScrollView>
+    <ProgressBar
+            android:id="@+id/fragment_characters_detail_loading_progressbar"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_character_detail_scrollview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
