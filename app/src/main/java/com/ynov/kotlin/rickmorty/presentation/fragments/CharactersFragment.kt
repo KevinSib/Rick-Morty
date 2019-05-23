@@ -38,7 +38,7 @@ class CharactersFragment : BaseFragment<CharactersViewModel>(),
     override val items: MutableList<Character>
         get() {
             viewModel.let {
-                it.mItems.value?.let { it ->
+                it.mItems.value?.let {
                     return it
                 }
             }
@@ -95,7 +95,7 @@ class CharactersFragment : BaseFragment<CharactersViewModel>(),
 
     //region ItemClick Delegate Methods
 
-    override var onClickBlock: ClickHandler<Character> = { obj, pos ->
+    override var onClickBlock: ClickHandler<Character> = { obj, _ ->
         val newIntent = CharacterDetailActivity.newIntent(requireContext(), obj.id)
         startActivity(newIntent)
     }

@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.ynov.kotlin.rickmorty.presentation.viewHolders.BaseViewHolder
-import com.ynov.kotlin.rickmorty.presentation.viewHolders.CharacterViewHolder
 
 abstract class BaseRecyclerViewAdapter<T>: RecyclerView.Adapter<BaseViewHolder<T>>() {
 

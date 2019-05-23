@@ -34,7 +34,7 @@ class EpisodesFragment : BaseFragment<EpisodesViewModel>(),
     override val items: MutableList<Episode>
         get() {
             viewModel.let {
-                it.mItems.value?.let { it ->
+                it.mItems.value?.let {
                     return it
                 }
             }
@@ -88,7 +88,7 @@ class EpisodesFragment : BaseFragment<EpisodesViewModel>(),
 
     //region ItemClick Delegate Methods
 
-    override var onClickBlock: ClickHandler<Episode> = { obj, pos ->
+    override var onClickBlock: ClickHandler<Episode> = { _, _ ->
         //  Nothing to do here for the moment
     }
 

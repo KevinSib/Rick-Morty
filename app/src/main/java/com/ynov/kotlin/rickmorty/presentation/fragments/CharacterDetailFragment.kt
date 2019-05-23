@@ -3,17 +3,9 @@ package com.ynov.kotlin.rickmorty.presentation.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
 import com.ynov.kotlin.rickmorty.R
-import com.ynov.kotlin.rickmorty.data.entity.Character
-import com.ynov.kotlin.rickmorty.data.entity.Episode
-import com.ynov.kotlin.rickmorty.presentation.adapters.BaseRecyclerViewAdapter
-import com.ynov.kotlin.rickmorty.presentation.adapters.EpisodesRecyclerViewAdapters
-import com.ynov.kotlin.rickmorty.presentation.viewHolders.BaseViewHolder
-import com.ynov.kotlin.rickmorty.presentation.viewHolders.ClickHandler
 import com.ynov.kotlin.rickmorty.presentation.viewModels.CharacterDetailViewModel
 import jp.wasabeef.picasso.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.fragment_character_detail.*
