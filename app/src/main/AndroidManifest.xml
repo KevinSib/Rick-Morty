@@ -20,7 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.activities.CharacterDetailActivity"/>
+        <activity
+                android:name=".presentation.activities.CharacterDetailActivity"
+                android:screenOrientation="portrait"/>
         <activity android:name=".presentation.activities.MainActivity"/>
     </application>
 
