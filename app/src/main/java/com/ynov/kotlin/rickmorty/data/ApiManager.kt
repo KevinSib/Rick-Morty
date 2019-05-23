@@ -1,6 +1,7 @@
 package com.ynov.kotlin.rickmorty.data
 
 import com.ynov.kotlin.rickmorty.data.entity.Character
+import com.ynov.kotlin.rickmorty.data.exceptions.ApiEmptyResultException
 import com.ynov.kotlin.rickmorty.data.remote.CharacterResult
 import com.ynov.kotlin.rickmorty.data.remote.EpisodeResult
 import com.ynov.kotlin.rickmorty.data.remote.LocationResult
@@ -46,11 +47,19 @@ class ApiManager {
             .create(ApiService::class.java)
     }
 
-    fun retrieveCharacters() = service.retrieveCharacters()
+    fun retrieveCharacters() = service.retrieveCharacters().doOnSuccess {
+        if (it.results.isEmpty()) {
+            throw ApiEmptyResultException()
+        }
+    }
 
     fun retrieveLocation() = service.retrieveLocation()
 
-    fun retrieveEpisode() = service.retrieveEpisode()
+    fun retrieveEpisode() = service.retrieveEpisode().doOnSuccess {
+        if (it.results.isEmpty()) {
+            throw ApiEmptyResultException()
+        }
+    }
 
     fun retrieveDetailCharacter(url: String) = service.retrieveDetailCharactere(url)
 }
