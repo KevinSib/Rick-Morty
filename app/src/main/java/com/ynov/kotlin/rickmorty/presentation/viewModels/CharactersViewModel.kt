@@ -23,8 +23,8 @@ class CharactersViewModel : BaseViewModel() {
     }
 
     override fun onCleared() {
-        super.onCleared()
         onSubscribe?.dispose()
+        super.onCleared()
     }
 
     fun loadData() {

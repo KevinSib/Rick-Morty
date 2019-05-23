@@ -1,9 +1,6 @@
 package com.ynov.kotlin.rickmorty.presentation.viewModels
 
-import android.annotation.SuppressLint
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.OnLifecycleEvent
 import com.ynov.kotlin.rickmorty.data.entity.Character
 import com.ynov.kotlin.rickmorty.presentation.RMApplication
 import io.reactivex.Single
@@ -34,9 +31,9 @@ class CharacterDetailViewModel : BaseViewModel() {
             )
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    fun onStop() {
+    override fun onCleared() {
         onSubscribe?.dispose()
+        super.onCleared()
     }
 
 }
