@@ -19,6 +19,10 @@ import jp.wasabeef.picasso.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.fragment_character_detail.*
 
 
+//  FIXME We pass here an information by the manufacturer because via the bundle
+//   it creates an error that causes the parent activity to crash. No answer has
+//   yet been found. CAUTION ! this means that the rotation of the screen will not work properly.
+//   For the moment the rotation of this screen has been blocked
 class CharacterDetailFragment(var characterId: Long) : BaseFragment<CharacterDetailViewModel>(),
     BaseRecyclerViewAdapter.IRecyclerViewManager<Episode>,
     BaseViewHolder.IItemOnClickListener<Episode> {
