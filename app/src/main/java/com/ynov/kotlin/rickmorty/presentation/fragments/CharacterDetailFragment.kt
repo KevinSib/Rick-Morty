@@ -23,28 +23,13 @@ import kotlinx.android.synthetic.main.fragment_character_detail.*
 //   it creates an error that causes the parent activity to crash. No answer has
 //   yet been found. CAUTION ! this means that the rotation of the screen will not work properly.
 //   For the moment the rotation of this screen has been blocked
-class CharacterDetailFragment(var characterId: Long) : BaseFragment<CharacterDetailViewModel>(),
-    BaseRecyclerViewAdapter.IRecyclerViewManager<Episode>,
-    BaseViewHolder.IItemOnClickListener<Episode> {
+class CharacterDetailFragment(var characterId: Long) : BaseFragment<CharacterDetailViewModel>() {
 
     //region Variables
 
     override var layoutId: Int = R.layout.fragment_character_detail
 
     override val viewModelClass: Class<CharacterDetailViewModel> = CharacterDetailViewModel::class.java
-
-    override val items: MutableList<Episode>
-        get() {
-            viewModel.let {
-                it.mItem.value?.let {
-                    return mutableListOf()
-                }
-            }
-            return mutableListOf()
-        }
-
-    override val onClickListenerManager: BaseViewHolder.IItemOnClickListener<Episode>
-        get() = this
 
     //endregion
 
@@ -53,11 +38,6 @@ class CharacterDetailFragment(var characterId: Long) : BaseFragment<CharacterDet
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         lifecycle.addObserver(viewModel)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        initRecyclerView()
     }
 
     override fun onResume() {
@@ -72,18 +52,6 @@ class CharacterDetailFragment(var characterId: Long) : BaseFragment<CharacterDet
     //endregion
 
     //region Methods
-
-    private fun initRecyclerView() {
-        fragment_charactersd_detail_recyclerview?.let {
-
-            val adapter = EpisodesRecyclerViewAdapters()
-            adapter.manager = this
-
-            it.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-            it.adapter = adapter
-
-        }
-    }
 
     override fun initViewModelObserver() {
         super.initViewModelObserver()
@@ -127,18 +95,6 @@ class CharacterDetailFragment(var characterId: Long) : BaseFragment<CharacterDet
 
     override fun onError(err: Throwable) {
 
-    }
-
-    //endregion
-
-    //region IRecyclerView Delegate
-
-    override fun numberOfItem(): Int = items.size
-
-    override fun getItemAtPosition(position: Int): Episode = items[position]
-
-    override var onClickBlock: ClickHandler<Episode> = { obj, pos ->
-        //  Nothing to do here
     }
 
     //endregion
