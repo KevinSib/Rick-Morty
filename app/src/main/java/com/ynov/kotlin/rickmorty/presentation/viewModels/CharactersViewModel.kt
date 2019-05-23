@@ -18,6 +18,10 @@ class CharactersViewModel : BaseViewModel() {
     var mItems: MutableLiveData<MutableList<Character>> = MutableLiveData()
     private var onSubscribe: Disposable? = null
 
+
+    // TODO mieux vaut appeler loadData() dans le init {} de la classe CharactersViewModel
+    //  puisque c'est la première chose qui s'exécute après le constructeur
+    //  et la liste reste dans le livedata tant que le viewmodel existe
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     fun onResume() {
         loadData()
@@ -29,6 +33,7 @@ class CharactersViewModel : BaseViewModel() {
     }
 
     fun loadData() {
+        // TODO utiliser .postValue() plutôt que .value =
         mIsLoading.value = true
         val characterResult: Single<CharacterResult> = RMApplication.app.characterRepository.getCharacters()
         onSubscribe = characterResult

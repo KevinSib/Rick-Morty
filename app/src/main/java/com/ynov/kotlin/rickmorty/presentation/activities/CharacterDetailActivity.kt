@@ -13,6 +13,8 @@ import com.ynov.kotlin.rickmorty.R.layout.activity_character_detail
 class CharacterDetailActivity : AppCompatActivity() {
 
     companion object {
+        // TODO cette constante peut se placer juste au dessus de la déclaration de la classe, en private
+        //  car on l'utilise seulement dans ce fichier et n'es pas censée être accessible depuis ailleurs
         const val CHARACTER_ID: String = "CHAR_ID"
         fun newIntent(cxt: Context, id: Long): Intent {
             var newI = Intent(cxt, CharacterDetailActivity::class.java)

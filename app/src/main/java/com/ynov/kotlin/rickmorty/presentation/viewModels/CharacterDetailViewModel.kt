@@ -11,10 +11,12 @@ import io.reactivex.schedulers.Schedulers
 
 class CharacterDetailViewModel : BaseViewModel() {
 
+    // TODO le livedata peut être val
     var mItem: MutableLiveData<Character> = MutableLiveData()
     private var onSubscribe: Disposable? = null
 
     fun start(id: Long) {
+        // TODO utiliser .postValue() plutôt que .value =
         mIsLoading.value = true
         val characterResult: Single<Character> = RMApplication.app.characterRepository.getCharacterById(id)
         onSubscribe = characterResult

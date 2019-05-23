@@ -28,6 +28,8 @@ class CharacterResultCache: ICharacterResultCache {
 
     override fun getCharacter(id: Long): Maybe<Character> {
         mResult?.let {
+            // TODO attention au it encapsulé dans un scope où il y a déjà un it
+            //  il faudrait définir un nom de paramètre explicite à la place d'un des deux it
             val found = it.results.filter {
                 if (it.id == id) {
                     return Maybe.just(it)
@@ -44,6 +46,11 @@ class CharacterResultCache: ICharacterResultCache {
             return it.results
         }
         return emptyList()
+
+        // TODO Ici on aurait pû opitmier le code en une ligne :
+        //  return mResult?.results ?: emptyList()
+        //  et même
+        //  override fun getCharacters() = mResult?.results ?: emptyList()
     }
 
     override fun setResult(res: CharacterResult) {
@@ -58,6 +65,8 @@ class CharacterCacheRepository(
 ): ICharacterRepository by delegate {
 
     override fun getCharacters(): Single<CharacterResult> {
+        // TODO pour optimier un peu le code, on peut mettre le return avant le if
+        //  au lieu de le mettre dans chaque bloc
         if (characterResCache.hasCharacters) {
             return Single.create { emitter ->
                 characterResCache.getResult()?.let {

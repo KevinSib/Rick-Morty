@@ -15,5 +15,8 @@ class CharacterRepository(private val apiManager: ApiManager): ICharacterReposit
     override fun getCharacters(): Single<CharacterResult> = apiManager.retrieveCharacters()
 
     override fun getCharacterById(id: Long): Single<Character> = apiManager.retrieveDetailCharacter("$id")
+    // TODO pour le "$id" c'est pas mal mais pas très explicite
+    //  le mieux est de caster : id.toString()
+    //  comme ça on comprend bien ce que vous voulez faire ici
 
 }

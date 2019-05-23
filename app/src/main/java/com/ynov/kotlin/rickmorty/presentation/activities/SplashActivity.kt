@@ -23,6 +23,8 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         mDelayHandler = Handler()
+        // TODO ici le let est inutile, il suffit de faire :
+        //  mDelayHandler?.postDelayed(mRunnable, SPLASH_DELAY)
         mDelayHandler?.let {
             it.postDelayed(mRunnable, SPLASH_DELAY)
         }
@@ -30,6 +32,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     public override fun onDestroy() {
+        // TODO pareil pour le let
         mDelayHandler?.let {
             it.removeCallbacks(mRunnable)
         }

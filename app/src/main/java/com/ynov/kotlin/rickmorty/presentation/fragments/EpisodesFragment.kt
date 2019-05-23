@@ -31,9 +31,16 @@ class EpisodesFragment : BaseFragment<EpisodesViewModel>(),
     override val onClickListenerManager: BaseViewHolder.IItemOnClickListener<Episode>
         get() = this
 
+
+    // TODO pas très clair ici
+    //  on aurait plutôt simplifié en
+    //  viewModel.mItems.value ?: mutableListOf()
     override val items: MutableList<Episode>
         get() {
             viewModel.let {
+                // TODO TOUJOURS accéder à une valeur de LiveData par un observe
+                //  Ici on perd tout le principe du viewmodel et des appels asynchrones
+                //  il y a beaucoup de chances pour que value soit null dès que l'on créer le fragment
                 it.mItems.value?.let {
                     return it
                 }
@@ -68,6 +75,8 @@ class EpisodesFragment : BaseFragment<EpisodesViewModel>(),
         super.initViewModelObserver()
         viewModel.mItems.observe(this, Observer {
             fragment_episodes_swipe.isRefreshing = false
+            // TODO Mieux vaut garder une instance de l'adapter dans la classe
+            //  et y accéder directement sans tester les nullables
             fragment_episodes_recyclerview?.adapter?.notifyDataSetChanged()
         })
     }

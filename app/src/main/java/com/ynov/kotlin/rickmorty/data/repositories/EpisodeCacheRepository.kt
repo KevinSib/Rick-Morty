@@ -23,6 +23,8 @@ class EpisodeResultCache: IEpisodeResultCache {
     override val hasCharacters: Boolean
         get() = mResult != null
 
+    // TODO ne pas hésiter à utiliser un = au lieu du return
+    //  override fun getResult(): EpisodeResult? = mResult
     override fun getResult(): EpisodeResult? {
         return mResult
     }
@@ -32,6 +34,8 @@ class EpisodeResultCache: IEpisodeResultCache {
             return it.results
         }
         return emptyList()
+        // TODO Ici on aurait pû opitmier le code en une ligne :
+        //  return mResult?.results ?: emptyList()
     }
 
     override fun setResult(res: EpisodeResult) {
@@ -46,6 +50,8 @@ class EpisodeCacheRepository(
 ): IEpisodeRepository by delegate {
 
     override fun getEpisodes(): Single<EpisodeResult> {
+        // TODO pour optimier un peu le code, on peut mettre le return avant le if
+        //  au lieu de le mettre dans chaque bloc
         if (episodeResCache.hasCharacters) {
             return Single.create { emitter ->
                 episodeResCache.getResult()?.let {

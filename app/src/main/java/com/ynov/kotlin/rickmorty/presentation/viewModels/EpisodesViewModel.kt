@@ -15,6 +15,8 @@ import io.reactivex.schedulers.Schedulers
 
 class EpisodesViewModel : BaseViewModel() {
 
+    // TODO il n'y a pas de raison de mettre une mutablelist dans un livadata
+    //  on modifie toujours le contenu du livedata mais jamais l'objet contenu en lui-même
     var mItems: MutableLiveData<MutableList<Episode>> = MutableLiveData()
     private var onSubscribe: Disposable? = null
 
