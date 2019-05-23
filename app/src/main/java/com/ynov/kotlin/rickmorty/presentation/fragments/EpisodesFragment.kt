@@ -8,30 +8,34 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ynov.kotlin.rickmorty.R
+import com.ynov.kotlin.rickmorty.data.entity.Character
+import com.ynov.kotlin.rickmorty.data.entity.Episode
+import com.ynov.kotlin.rickmorty.presentation.activities.CharacterDetailActivity
 import com.ynov.kotlin.rickmorty.presentation.adapters.BaseRecyclerViewAdapter
 import com.ynov.kotlin.rickmorty.presentation.adapters.CharactersRecyclerViewAdapters
 import com.ynov.kotlin.rickmorty.presentation.adapters.EpisodesRecyclerViewAdapters
 import com.ynov.kotlin.rickmorty.presentation.viewHolders.BaseViewHolder
+import com.ynov.kotlin.rickmorty.presentation.viewHolders.ClickHandler
 import com.ynov.kotlin.rickmorty.presentation.viewModels.EpisodesViewModel
 import kotlinx.android.synthetic.main.fragment_characters.*
 import kotlinx.android.synthetic.main.fragment_episodes.*
 
 class EpisodesFragment : BaseFragment<EpisodesViewModel>(),
-    BaseRecyclerViewAdapter.IRecyclerViewManager,
-    BaseViewHolder.IItemOnClickListener {
+    BaseRecyclerViewAdapter.IRecyclerViewManager<Episode>,
+    BaseViewHolder.IItemOnClickListener<Episode> {
 
     override val viewModelClass = EpisodesViewModel::class.java
 
     override var layoutId: Int = R.layout.fragment_episodes
 
-    override val onClickListenerManager: BaseViewHolder.IItemOnClickListener
+    override val onClickListenerManager: BaseViewHolder.IItemOnClickListener<Episode>
         get() = this
 
-    override val items: MutableList<Any>
+    override val items: MutableList<Episode>
         get() {
             viewModel.let {
                 it.mItems.value?.let { it ->
-                    return it as MutableList<Any>
+                    return it
                 }
             }
             return mutableListOf()
@@ -78,14 +82,14 @@ class EpisodesFragment : BaseFragment<EpisodesViewModel>(),
 
     override fun numberOfItem(): Int = items.size
 
-    override fun getItemAtPosition(position: Int): Any = items[position]
+    override fun getItemAtPosition(position: Int): Episode = items[position]
 
     //endregion
 
     //region ItemClick Delegate Methods
 
-    override fun onClickRecyclerViewItem(obj: Any, atPosition: Int) {
-        //  TODO Implement click if needed
+    override var onClickBlock: ClickHandler<Episode> = { obj, pos ->
+        //  Nothing to do here for the moment
     }
 
     //endregion

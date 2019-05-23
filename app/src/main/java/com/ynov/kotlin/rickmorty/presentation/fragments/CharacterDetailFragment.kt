@@ -8,17 +8,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
 import com.ynov.kotlin.rickmorty.R
+import com.ynov.kotlin.rickmorty.data.entity.Character
+import com.ynov.kotlin.rickmorty.data.entity.Episode
 import com.ynov.kotlin.rickmorty.presentation.adapters.BaseRecyclerViewAdapter
 import com.ynov.kotlin.rickmorty.presentation.adapters.EpisodesRecyclerViewAdapters
 import com.ynov.kotlin.rickmorty.presentation.viewHolders.BaseViewHolder
+import com.ynov.kotlin.rickmorty.presentation.viewHolders.ClickHandler
 import com.ynov.kotlin.rickmorty.presentation.viewModels.CharacterDetailViewModel
 import jp.wasabeef.picasso.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.fragment_character_detail.*
 
 
 class CharacterDetailFragment(var characterId: Long) : BaseFragment<CharacterDetailViewModel>(),
-    BaseRecyclerViewAdapter.IRecyclerViewManager,
-    BaseViewHolder.IItemOnClickListener {
+    BaseRecyclerViewAdapter.IRecyclerViewManager<Episode>,
+    BaseViewHolder.IItemOnClickListener<Episode> {
 
     //region Variables
 
@@ -26,17 +29,17 @@ class CharacterDetailFragment(var characterId: Long) : BaseFragment<CharacterDet
 
     override val viewModelClass: Class<CharacterDetailViewModel> = CharacterDetailViewModel::class.java
 
-    override val items: MutableList<Any>
+    override val items: MutableList<Episode>
         get() {
             viewModel.let {
                 it.mItem.value?.let {
-                    return mutableListOf(it.episode)
+                    return mutableListOf()
                 }
             }
             return mutableListOf()
         }
 
-    override val onClickListenerManager: BaseViewHolder.IItemOnClickListener
+    override val onClickListenerManager: BaseViewHolder.IItemOnClickListener<Episode>
         get() = this
 
     //endregion
@@ -81,6 +84,7 @@ class CharacterDetailFragment(var characterId: Long) : BaseFragment<CharacterDet
     override fun initViewModelObserver() {
         super.initViewModelObserver()
         viewModel.mItem.observe(this, Observer {
+            requireActivity().title = it.name
             fragment_character_detail_cover_imageview?.let { imgView ->
                 Picasso
                     .get()
@@ -127,12 +131,11 @@ class CharacterDetailFragment(var characterId: Long) : BaseFragment<CharacterDet
 
     override fun numberOfItem(): Int = items.size
 
-    override fun getItemAtPosition(position: Int): Any = items[position]
+    override fun getItemAtPosition(position: Int): Episode = items[position]
 
-    override fun onClickRecyclerViewItem(obj: Any, atPosition: Int) {
-        //  TODO manage click if needed
+    override var onClickBlock: ClickHandler<Episode> = { obj, pos ->
+        //  Nothing to do here
     }
-
 
     //endregion
 

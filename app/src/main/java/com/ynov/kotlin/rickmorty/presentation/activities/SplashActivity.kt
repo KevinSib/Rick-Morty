@@ -23,13 +23,15 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         mDelayHandler = Handler()
-        mDelayHandler!!.postDelayed(mRunnable, SPLASH_DELAY)
+        mDelayHandler?.let {
+            it.postDelayed(mRunnable, SPLASH_DELAY)
+        }
 
     }
 
     public override fun onDestroy() {
-        if (mDelayHandler != null) {
-            mDelayHandler!!.removeCallbacks(mRunnable)
+        mDelayHandler?.let {
+            it.removeCallbacks(mRunnable)
         }
         super.onDestroy()
     }

@@ -12,30 +12,34 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ynov.kotlin.rickmorty.R
 import com.ynov.kotlin.rickmorty.data.entity.Character
+import com.ynov.kotlin.rickmorty.data.entity.Episode
 import com.ynov.kotlin.rickmorty.data.exceptions.ApiEmptyResultException
 import com.ynov.kotlin.rickmorty.presentation.activities.CharacterDetailActivity
 import com.ynov.kotlin.rickmorty.presentation.adapters.BaseRecyclerViewAdapter.IRecyclerViewManager
 import com.ynov.kotlin.rickmorty.presentation.adapters.CharactersRecyclerViewAdapters
 import com.ynov.kotlin.rickmorty.presentation.extensions.showMessage
 import com.ynov.kotlin.rickmorty.presentation.viewHolders.BaseViewHolder
+import com.ynov.kotlin.rickmorty.presentation.viewHolders.ClickHandler
 import com.ynov.kotlin.rickmorty.presentation.viewModels.CharactersViewModel
 import kotlinx.android.synthetic.main.fragment_characters.*
 
 
-class CharactersFragment : BaseFragment<CharactersViewModel>(), IRecyclerViewManager, BaseViewHolder.IItemOnClickListener {
+class CharactersFragment : BaseFragment<CharactersViewModel>(),
+    IRecyclerViewManager<Character>,
+    BaseViewHolder.IItemOnClickListener<Character> {
 
     override val viewModelClass = CharactersViewModel::class.java
 
     override var layoutId: Int = R.layout.fragment_characters
 
-    override val onClickListenerManager: BaseViewHolder.IItemOnClickListener
+    override val onClickListenerManager: BaseViewHolder.IItemOnClickListener<Character>
         get() = this
 
-    override val items: MutableList<Any>
+    override val items: MutableList<Character>
         get() {
             viewModel.let {
                 it.mItems.value?.let { it ->
-                    return it as MutableList<Any>
+                    return it
                 }
             }
             return mutableListOf()
@@ -85,17 +89,15 @@ class CharactersFragment : BaseFragment<CharactersViewModel>(), IRecyclerViewMan
 
     override fun numberOfItem(): Int = items.size
 
-    override fun getItemAtPosition(position: Int): Any = items[position]
+    override fun getItemAtPosition(position: Int): Character = items[position]
 
     //endregion
 
     //region ItemClick Delegate Methods
 
-    override fun onClickRecyclerViewItem(obj: Any, atPosition: Int) {
-        if (obj is Character) {
-            val newIntent = CharacterDetailActivity.newIntent(requireContext(), obj.id)
-            startActivity(newIntent)
-        }
+    override var onClickBlock: ClickHandler<Character> = { obj, pos ->
+        val newIntent = CharacterDetailActivity.newIntent(requireContext(), obj.id)
+        startActivity(newIntent)
     }
 
     //endregion

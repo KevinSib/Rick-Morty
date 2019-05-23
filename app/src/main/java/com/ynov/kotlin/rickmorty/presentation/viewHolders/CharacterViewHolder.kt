@@ -7,16 +7,21 @@ import com.ynov.kotlin.rickmorty.R
 import com.ynov.kotlin.rickmorty.data.entity.Character
 import com.ynov.kotlin.rickmorty.presentation.widgets.SquareImageView
 
-class CharacterViewHolder(itemView: View) : BaseViewHolder(itemView) {
+class CharacterViewHolder(itemView: View) : BaseViewHolder<Character>(itemView) {
 
-    override fun layoutForObject(obj: Any, atPosition: Int) {
+    override fun layoutForObject(obj: Character, atPosition: Int) {
+
         super.layoutForObject(obj, atPosition)
-        if (obj is Character) {
-            val nameTextView = itemView.findViewById<TextView>(R.id.cell_character_name)
-            nameTextView.text = obj.name
-            val picImageView = itemView.findViewById<SquareImageView>(R.id.cell_character_picture)
-            Picasso.get().load(obj.image).into(picImageView)
-        }
+
+        val nameTextView = itemView.findViewById<TextView>(R.id.cell_character_name)
+        nameTextView.text = obj.name
+
+        val specieTextView = itemView.findViewById<TextView>(R.id.cell_character_specie)
+        specieTextView.text = obj.species
+
+        val picImageView = itemView.findViewById<SquareImageView>(R.id.cell_character_picture)
+        Picasso.get().load(obj.image).into(picImageView)
+
     }
 
 }

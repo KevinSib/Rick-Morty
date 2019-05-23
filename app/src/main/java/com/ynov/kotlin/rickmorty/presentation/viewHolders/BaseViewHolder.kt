@@ -3,22 +3,23 @@ package com.ynov.kotlin.rickmorty.presentation.viewHolders
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-abstract class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+typealias ClickHandler<T> = (T, Int) -> Unit
 
-    interface IItemOnClickListener {
-        fun onClickRecyclerViewItem(obj: Any, atPosition: Int)
+abstract class BaseViewHolder<T>(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    interface IItemOnClickListener<T> {
+        var onClickBlock: ClickHandler<T>
     }
 
-    private var itemOnClickListenerManager: IItemOnClickListener? = null
+    var itemOnClickListenerManager: IItemOnClickListener<T>? = null
 
-    fun setItemOnClickListenerManager(listener: IItemOnClickListener) {
-        this.itemOnClickListenerManager = listener
-    }
-
-    open fun layoutForObject(obj: Any, atPosition: Int) {
-        itemView.setOnClickListener {
-            itemOnClickListenerManager?.onClickRecyclerViewItem(obj, atPosition)
+    open fun layoutForObject(obj: T, atPosition: Int) {
+        itemOnClickListenerManager?.let { mgr ->
+            itemView.setOnClickListener {
+                mgr.onClickBlock(obj, atPosition)
+            }
         }
+
     }
 
 }
