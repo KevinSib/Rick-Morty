@@ -21,9 +21,9 @@ class CharactersViewModel : BaseViewModel() {
         loadData()
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    fun onStop() {
+    override fun onCleared() {
         onSubscribe?.dispose()
+        super.onCleared()
     }
 
     fun loadData() {
