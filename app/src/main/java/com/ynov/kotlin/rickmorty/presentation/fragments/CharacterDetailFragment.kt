@@ -79,12 +79,7 @@ class CharacterDetailFragment(var characterId: Long) : BaseFragment<CharacterDet
     }
 
     override fun initViewModelObserver() {
-        viewModel.mIsLoading.observe(this, Observer {
-            if (it)
-                startLoading()
-            else
-                stopLoading()
-        })
+        super.initViewModelObserver()
         viewModel.mItem.observe(this, Observer {
             fragment_character_detail_cover_imageview?.let { imgView ->
                 Picasso
@@ -112,12 +107,12 @@ class CharacterDetailFragment(var characterId: Long) : BaseFragment<CharacterDet
         })
     }
 
-    private fun startLoading() {
+    override fun startLoading() {
         fragment_characters_detail_loading_progressbar.visibility = View.VISIBLE
         //  TODO group invisible
     }
 
-    private fun stopLoading() {
+    override fun stopLoading() {
         fragment_characters_detail_loading_progressbar.visibility = View.GONE
         //  TODO group visible
     }

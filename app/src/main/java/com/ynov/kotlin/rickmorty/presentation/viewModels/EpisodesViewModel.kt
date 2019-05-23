@@ -11,6 +11,7 @@ import com.ynov.kotlin.rickmorty.presentation.RMApplication
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 
 class EpisodesViewModel : BaseViewModel() {
@@ -34,10 +35,15 @@ class EpisodesViewModel : BaseViewModel() {
         onSubscribe = characterResult
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { res ->
-                mIsLoading.value = false
-                mItems.value = res.results.toMutableList()
-            }
+            .subscribeBy(
+                onSuccess = {
+                    mIsLoading.postValue(false)
+                    mItems.postValue(it.results.toMutableList())
+                },
+                onError = {
+                    mError.postValue(it)
+                }
+            )
     }
 
 }

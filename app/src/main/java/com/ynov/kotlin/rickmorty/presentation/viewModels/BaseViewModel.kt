@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 open class BaseViewModel : ViewModel(), LifecycleObserver {
 
     var mIsLoading: MutableLiveData<Boolean> = MutableLiveData()
+    var mError: MutableLiveData<Throwable> = MutableLiveData()
 
     init {
         mIsLoading.value = false

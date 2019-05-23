@@ -60,15 +60,10 @@ class EpisodesFragment : BaseFragment<EpisodesViewModel>(),
     }
 
     override fun initViewModelObserver() {
+        super.initViewModelObserver()
         viewModel.mItems.observe(this, Observer {
             fragment_episodes_swipe.isRefreshing = false
             fragment_episodes_recyclerview?.adapter?.notifyDataSetChanged()
-        })
-        viewModel.mIsLoading.observe(this, Observer {
-            if (it)
-                startLoading()
-            else
-                stopLoading()
         })
     }
 
@@ -96,12 +91,12 @@ class EpisodesFragment : BaseFragment<EpisodesViewModel>(),
 
     //region Loading management
 
-    fun startLoading() {
+    override fun startLoading() {
         fragment_episodes_progressbar.visibility = View.VISIBLE
         fragment_episodes_loading_group.visibility = View.GONE
     }
 
-    fun stopLoading() {
+    override fun stopLoading() {
         fragment_episodes_progressbar.visibility = View.GONE
         fragment_episodes_loading_group.visibility = View.VISIBLE
     }

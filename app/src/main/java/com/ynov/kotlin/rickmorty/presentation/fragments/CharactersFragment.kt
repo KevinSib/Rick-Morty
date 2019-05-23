@@ -12,9 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ynov.kotlin.rickmorty.R
 import com.ynov.kotlin.rickmorty.data.entity.Character
+import com.ynov.kotlin.rickmorty.data.exceptions.ApiEmptyResultException
 import com.ynov.kotlin.rickmorty.presentation.activities.CharacterDetailActivity
 import com.ynov.kotlin.rickmorty.presentation.adapters.BaseRecyclerViewAdapter.IRecyclerViewManager
 import com.ynov.kotlin.rickmorty.presentation.adapters.CharactersRecyclerViewAdapters
+import com.ynov.kotlin.rickmorty.presentation.extensions.showMessage
 import com.ynov.kotlin.rickmorty.presentation.viewHolders.BaseViewHolder
 import com.ynov.kotlin.rickmorty.presentation.viewModels.CharactersViewModel
 import kotlinx.android.synthetic.main.fragment_characters.*
@@ -63,15 +65,10 @@ class CharactersFragment : BaseFragment<CharactersViewModel>(), IRecyclerViewMan
     }
 
     override fun initViewModelObserver() {
+        super.initViewModelObserver()
         viewModel.mItems.observe(this, Observer {
             fragment_characters_swipe.isRefreshing = false
             fragment_characters_recyclerview?.adapter?.notifyDataSetChanged()
-        })
-        viewModel.mIsLoading.observe(this, Observer {
-            if (it)
-                startLoading()
-            else
-                stopLoading()
         })
     }
 
@@ -102,12 +99,12 @@ class CharactersFragment : BaseFragment<CharactersViewModel>(), IRecyclerViewMan
 
     //region Loading management
 
-    fun startLoading() {
+    override fun startLoading() {
         fragment_character_progressbar.visibility = View.VISIBLE
         fragment_character_loading_group.visibility = View.GONE
     }
 
-    fun stopLoading() {
+    override fun stopLoading() {
         fragment_character_progressbar.visibility = View.GONE
         fragment_character_loading_group.visibility = View.VISIBLE
     }

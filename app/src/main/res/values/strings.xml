@@ -12,10 +12,8 @@
     <string name="fragment_character_detail_location">Location</string>
     <string name="fragment_character_detail_title_detail">location :</string>
     <string name="fragment_character_detail_title_origin">Origin :</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="menu_nav_characters">Personnages</string>
     <string name="menu_nav_episodes">Episodes</string>
-    <string name="common_origin">Origines</string>
-    <string name="common_location">Localité</string>s
+    <string name="error_default">Une erreur est survenue, merci de réessayer plus tard</string>
+    <string name="error_api_empty">La liste semble vide ! Un problème est peut-être survenu du côté serveur. Merci de réessayer plus tard</string>
 </resources>

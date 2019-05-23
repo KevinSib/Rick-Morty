@@ -9,6 +9,7 @@ import com.ynov.kotlin.rickmorty.presentation.RMApplication
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
+import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 
 class CharacterDetailViewModel : BaseViewModel() {
@@ -22,14 +23,20 @@ class CharacterDetailViewModel : BaseViewModel() {
         onSubscribe = characterResult
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { res ->
-                mIsLoading.value = false
-                mItem.value = res
-            }
+            .subscribeBy(
+                onSuccess = {
+                    mIsLoading.postValue(false)
+                    mItem.postValue(it)
+                },
+                onError = {
+                    mError.postValue(it)
+                }
+            )
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun onStop() {
         onSubscribe?.dispose()
     }
+
 }
