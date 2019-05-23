@@ -4,6 +4,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import com.ynov.kotlin.rickmorty.data.entity.Episode
+import com.ynov.kotlin.rickmorty.data.exceptions.ApiEmptyResultException
 import com.ynov.kotlin.rickmorty.data.remote.EpisodeResult
 import com.ynov.kotlin.rickmorty.presentation.RMApplication
 import io.reactivex.Single

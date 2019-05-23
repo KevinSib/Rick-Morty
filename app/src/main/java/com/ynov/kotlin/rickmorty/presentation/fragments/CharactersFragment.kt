@@ -62,6 +62,9 @@ class CharactersFragment : BaseFragment<CharactersViewModel>(), IRecyclerViewMan
         fragment_characters_swipe.setOnRefreshListener {
             viewModel.loadData()
         }
+        fragment_characters_errorview.setRetryListener {
+            viewModel.loadData()
+        }
     }
 
     override fun initViewModelObserver() {
@@ -100,13 +103,28 @@ class CharactersFragment : BaseFragment<CharactersViewModel>(), IRecyclerViewMan
     //region Loading management
 
     override fun startLoading() {
+        fragment_characters_errorview.visibility = View.GONE
         fragment_character_progressbar.visibility = View.VISIBLE
         fragment_character_loading_group.visibility = View.GONE
     }
 
     override fun stopLoading() {
+        fragment_characters_swipe.isRefreshing = false
         fragment_character_progressbar.visibility = View.GONE
         fragment_character_loading_group.visibility = View.VISIBLE
+    }
+
+    //endregion
+
+    //region Error Management
+
+    override fun onError(err: Throwable) {
+        err.message?.let {
+            fragment_characters_errorview.title = it
+        } ?: run {
+            fragment_characters_errorview.title = getString(R.string.error_default)
+        }
+        fragment_characters_errorview.visibility = View.VISIBLE
     }
 
     //endregion

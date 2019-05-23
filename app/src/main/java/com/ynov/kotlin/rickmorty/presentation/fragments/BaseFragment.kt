@@ -49,7 +49,10 @@ abstract class BaseFragment<T: BaseViewModel> : Fragment() {
             if (it is ApiEmptyResultException) {
                 errMsg = getString(R.string.error_api_empty)
             }
+            errMsg += " : ${it.message}"
+            stopLoading()
             view?.showSnackbar(errMsg)
+            onError(it)
         })
         viewModel.mIsLoading.observe(this, Observer {
             if (it)
@@ -66,6 +69,8 @@ abstract class BaseFragment<T: BaseViewModel> : Fragment() {
     abstract fun startLoading()
 
     abstract fun stopLoading()
+
+    abstract fun onError(err: Throwable)
 
     //endregion
 

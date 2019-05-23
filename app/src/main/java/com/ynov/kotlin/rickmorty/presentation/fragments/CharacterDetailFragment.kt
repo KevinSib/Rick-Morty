@@ -117,6 +117,10 @@ class CharacterDetailFragment(var characterId: Long) : BaseFragment<CharacterDet
         //  TODO group visible
     }
 
+    override fun onError(err: Throwable) {
+
+    }
+
     //endregion
 
     //region IRecyclerView Delegate

@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="ev_style">@style/ErrorView</item>
     </style>
 
     <style name="AppThemeWithoutBar" parent="Theme.AppCompat.Light.NoActionBar">
@@ -13,6 +14,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="ev_style">@style/ErrorView</item>
+    </style>
+
+    <style name="ErrorView">
+        <item name="ev_retryText"> </item>
+        <item name="ev_image">@drawable/sad</item>
     </style>
 
 </resources>
