@@ -1,5 +1,7 @@
 package com.ynov.kotlin.rickmorty.presentation.activities
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -9,6 +11,12 @@ import com.ynov.kotlin.rickmorty.presentation.fragments.EpisodesFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    companion object {
+        fun newIntent(cxt: Context): Intent {
+            return Intent(cxt, MainActivity::class.java)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

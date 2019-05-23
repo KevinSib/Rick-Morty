@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
 import com.ynov.kotlin.rickmorty.R
@@ -71,7 +72,7 @@ class CharacterDetailFragment(var characterId: Long) : BaseFragment<CharacterDet
             val adapter = EpisodesRecyclerViewAdapters()
             adapter.manager = this
 
-            it.layoutManager = LinearLayoutManager(requireContext())
+            it.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
             it.adapter = adapter
 
         }
