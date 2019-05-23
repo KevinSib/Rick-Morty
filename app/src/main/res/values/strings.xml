@@ -16,4 +16,5 @@
     <string name="menu_nav_episodes">Episodes</string>
     <string name="error_default">Une erreur est survenue, merci de réessayer plus tard</string>
     <string name="error_api_empty">La liste semble vide ! Un problème est peut-être survenu du côté serveur. Merci de réessayer plus tard</string>
+    <string name="error_no_character_id">Un problème est survenu lors du chargement du personnage</string>
 </resources>

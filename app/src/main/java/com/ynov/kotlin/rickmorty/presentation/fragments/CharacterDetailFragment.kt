@@ -11,9 +11,9 @@ import jp.wasabeef.picasso.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.fragment_character_detail.*
 
 
-//  FIXME We pass here an information by the manufacturer because via the bundle
+//  FIXME We pass here an information by the constructor because via the bundle
 //   it creates an error that causes the parent activity to crash. No answer has
-//   yet been found. CAUTION ! this means that the rotation of the screen will not work properly.
+//   yet been found. CAUTION ! This means that the rotation of the screen will not work properly.
 //   For the moment the rotation of this screen has been blocked
 class CharacterDetailFragment(var characterId: Long) : BaseFragment<CharacterDetailViewModel>() {
 
@@ -71,18 +71,17 @@ class CharacterDetailFragment(var characterId: Long) : BaseFragment<CharacterDet
             fragment_character_detail_type_textview?.text = it.type
             fragment_character_detail_origin_textview?.text = it.origin.name
             fragment_character_detail_location_textview?.text = it.location.name
-            fragment_charactersd_detail_recyclerview?.adapter?.notifyDataSetChanged()
         })
     }
 
     override fun startLoading() {
         fragment_characters_detail_loading_progressbar.visibility = View.VISIBLE
-        //  TODO group invisible
+        fragment_character_detail_loader_group.visibility = View.GONE
     }
 
     override fun stopLoading() {
         fragment_characters_detail_loading_progressbar.visibility = View.GONE
-        //  TODO group visible
+        fragment_character_detail_loader_group.visibility = View.VISIBLE
     }
 
     override fun onError(err: Throwable) {

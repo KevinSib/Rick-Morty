@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.ynov.kotlin.rickmorty.R
 import com.ynov.kotlin.rickmorty.presentation.extensions.showMessage
 import com.ynov.kotlin.rickmorty.presentation.fragments.CharacterDetailFragment
 import com.ynov.kotlin.rickmorty.R.layout.activity_character_detail
@@ -35,10 +36,9 @@ class CharacterDetailActivity : AppCompatActivity() {
     private fun loadFragment() {
         val characterId = intent.getLongExtra(CHARACTER_ID, -1L)
         if (characterId == -1L) {
-            //  TODO put string on strings.xml
             showMessage(
-                "Ricky et Morty",
-                "Une erreur est survenu, merci de réessayer plus tard"
+                getString(R.string.app_name),
+                getString(R.string.error_no_character_id)
             )
         } else {
             initFragment(characterId)
